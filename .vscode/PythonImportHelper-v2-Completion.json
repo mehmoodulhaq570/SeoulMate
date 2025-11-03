@@ -116,20 +116,21 @@
         "documentation": {}
     },
     {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
         "label": "pandas",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "pandas",
         "description": "pandas",
         "detail": "pandas",
-        "documentation": {}
-    },
-    {
-        "label": "is_datetime64_any_dtype",
-        "importPath": "pandas.api.types",
-        "description": "pandas.api.types",
-        "isExtraImport": true,
-        "detail": "pandas.api.types",
         "documentation": {}
     },
     {
@@ -157,15 +158,6 @@
         "importPath": "aiofiles",
         "description": "aiofiles",
         "detail": "aiofiles",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
         "documentation": {}
     },
     {
@@ -273,6 +265,14 @@
         "description": "playwright.async_api",
         "isExtraImport": true,
         "detail": "playwright.async_api",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
         "documentation": {}
     },
     {
@@ -494,65 +494,146 @@
         "documentation": {}
     },
     {
-        "label": "dramalist_file",
+        "label": "extract_notes_from_title",
+        "kind": 2,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "def extract_notes_from_title(title):\n    \"\"\"Extract text in () and [] from title and return cleaned title and notes\"\"\"\n    if not isinstance(title, str):\n        return title, \"_\"\n    # Find all content in parentheses and brackets\n    notes_list = []\n    # Extract content in parentheses ()\n    parentheses = re.findall(r'\\([^)]+\\)', title)\n    notes_list.extend(parentheses)\n    # Extract content in brackets []",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "clean_release_years_value",
+        "kind": 2,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "def clean_release_years_value(val):\n    \"\"\"Keep only the second year if multiple years exist, replace missing/- with _\"\"\"\n    if not isinstance(val, str):\n        return \"_\"\n    val = val.strip()\n    # Replace - with _\n    if val == \"-\" or val == \"\" or val == \"nan\":\n        return \"_\"\n    # If there are multiple years separated by comma, keep the second one (after comma)\n    if ',' in val:",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "input_file",
         "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "input_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset.csv\")\ndf = pd.read_csv(input_file, dtype=str)\nprint(f\"Loaded {len(df)} rows\")\nprint(f\"Columns: {list(df.columns)}\")\n# Add 'notes' column if it doesn't exist\nif 'notes' not in df.columns:\n    df['notes'] = \"_\"\n    print(\"Added 'notes' column\")\n# Function to extract content from parentheses and brackets\ndef extract_notes_from_title(title):",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "df = pd.read_csv(input_file, dtype=str)\nprint(f\"Loaded {len(df)} rows\")\nprint(f\"Columns: {list(df.columns)}\")\n# Add 'notes' column if it doesn't exist\nif 'notes' not in df.columns:\n    df['notes'] = \"_\"\n    print(\"Added 'notes' column\")\n# Function to extract content from parentheses and brackets\ndef extract_notes_from_title(title):\n    \"\"\"Extract text in () and [] from title and return cleaned title and notes\"\"\"",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "cleaned_titles",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "cleaned_titles = []\nextracted_notes = []\nfor idx, title in enumerate(df['title']):\n    cleaned_title, notes = extract_notes_from_title(title)\n    cleaned_titles.append(cleaned_title)\n    extracted_notes.append(notes)\ndf['title'] = cleaned_titles\n# Update notes column (append to existing notes if any)\nfor idx, note in enumerate(extracted_notes):\n    existing_note = df.loc[idx, 'notes']",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "extracted_notes",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "extracted_notes = []\nfor idx, title in enumerate(df['title']):\n    cleaned_title, notes = extract_notes_from_title(title)\n    cleaned_titles.append(cleaned_title)\n    extracted_notes.append(notes)\ndf['title'] = cleaned_titles\n# Update notes column (append to existing notes if any)\nfor idx, note in enumerate(extracted_notes):\n    existing_note = df.loc[idx, 'notes']\n    if pd.isna(existing_note) or existing_note == \"_\" or existing_note == \"\":",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "df['title']",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "df['title'] = cleaned_titles\n# Update notes column (append to existing notes if any)\nfor idx, note in enumerate(extracted_notes):\n    existing_note = df.loc[idx, 'notes']\n    if pd.isna(existing_note) or existing_note == \"_\" or existing_note == \"\":\n        df.loc[idx, 'notes'] = note\n    elif note != \"_\":\n        df.loc[idx, 'notes'] = f\"{existing_note}, {note}\"\nprint(f\"Extracted notes from {sum(1 for n in extracted_notes if n != '_')} titles\")\n# Clean release_years column",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "df = df.fillna(\"_\")\ndf = df.replace(\"\", \"_\")\ndf = df.replace(\"-\", \"_\")\ndf = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "df = df.replace(\"\", \"_\")\ndf = df.replace(\"-\", \"_\")\ndf = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "df = df.replace(\"-\", \"_\")\ndf = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "df = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")\nprint(f\"Columns: {list(df.columns)}\")",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "output_csv",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "output_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")\nprint(f\"Columns: {list(df.columns)}\")\nprint(\"\\n✓ Processing complete!\")",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "output_excel",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
+        "description": "data_scrapper.dataset.clean_kdrama_dataset",
+        "peekOfCode": "output_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")\nprint(f\"Columns: {list(df.columns)}\")\nprint(\"\\n✓ Processing complete!\")",
+        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
+        "documentation": {}
+    },
+    {
+        "label": "extract_years",
+        "kind": 2,
         "importPath": "data_scrapper.dataset.merger",
         "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "dramalist_file = os.path.join(\n    os.path.dirname(__file__), \"dramalist_kdrama.xlsx\"\n)  # Now using Excel file\nkdrama_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset.csv\")\n# Read dramalist_kdrama as Excel, kdrama_dataset as CSV (all as strings)\ndf_dramalist = pd.read_excel(dramalist_file, dtype=str)\ndf_kdrama = pd.read_csv(kdrama_file, dtype=str)\n# Column mapping from kdrama_dataset to dramalist format\ncolumn_mapping = {\n    \"Title\": \"title\",",
+        "peekOfCode": "def extract_years(date_str):\n    if not isinstance(date_str, str):\n        return \"_\"\n    # Find all 4-digit years\n    years = re.findall(r\"(19|20)\\d{2}\", date_str)\n    if years:\n        # Return the highest year as string\n        return max(years, key=int)\n    # Try to extract year from date formats like 10/12/2019\n    match = re.search(r\"(19|20)\\d{2}\", date_str)",
         "detail": "data_scrapper.dataset.merger",
         "documentation": {}
     },
     {
-        "label": "kdrama_file",
-        "kind": 5,
+        "label": "clean_release_years",
+        "kind": 2,
         "importPath": "data_scrapper.dataset.merger",
         "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "kdrama_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset.csv\")\n# Read dramalist_kdrama as Excel, kdrama_dataset as CSV (all as strings)\ndf_dramalist = pd.read_excel(dramalist_file, dtype=str)\ndf_kdrama = pd.read_csv(kdrama_file, dtype=str)\n# Column mapping from kdrama_dataset to dramalist format\ncolumn_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",\n    \"Network\": \"publisher\",",
+        "peekOfCode": "def clean_release_years(val, date_published):\n    # Only fill if value is '_'\n    if not isinstance(val, str) or val.strip() == \"_\":\n        return extract_years(date_published)\n    # If multiple years, keep only the highest\n    years = re.findall(r\"(19|20)\\d{2}\", val)\n    if years:\n        return max(years, key=int)\n    return val\nif \"release_years\" in combined_df.columns and \"date_published\" in combined_df.columns:",
         "detail": "data_scrapper.dataset.merger",
         "documentation": {}
     },
     {
-        "label": "df_dramalist",
+        "label": "input_file",
         "kind": 5,
         "importPath": "data_scrapper.dataset.merger",
         "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "df_dramalist = pd.read_excel(dramalist_file, dtype=str)\ndf_kdrama = pd.read_csv(kdrama_file, dtype=str)\n# Column mapping from kdrama_dataset to dramalist format\ncolumn_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",\n    \"Network\": \"publisher\",\n    \"Genre\": \"genres\",\n    \"Cast\": \"actors\",",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "df_kdrama",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "df_kdrama = pd.read_csv(kdrama_file, dtype=str)\n# Column mapping from kdrama_dataset to dramalist format\ncolumn_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",\n    \"Network\": \"publisher\",\n    \"Genre\": \"genres\",\n    \"Cast\": \"actors\",\n    \"Release Dates\": \"date_published\",",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "column_mapping",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "column_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",\n    \"Network\": \"publisher\",\n    \"Genre\": \"genres\",\n    \"Cast\": \"actors\",\n    \"Release Dates\": \"date_published\",\n    \"Poster\": \"url\",  # Using Poster for url since dramalist has url field\n    \"Written By\": \"written_by\",",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "df_kdrama",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "df_kdrama = df_kdrama.rename(columns=column_mapping)\n# Add missing columns with empty values to kdrama_dataset\nmissing_columns = [col for col in df_dramalist.columns if col not in df_kdrama.columns]\nfor col in missing_columns:\n    df_kdrama[col] = \"\"\n# Merge the two datasets based on the title column\ncombined_df = pd.merge(\n    df_dramalist, df_kdrama, on=\"title\", how=\"outer\", suffixes=(\"_file1\", \"_file2\")\n)\n# Fill missing values from file2 into file1 columns, only if the suffixed columns exist",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "missing_columns",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "missing_columns = [col for col in df_dramalist.columns if col not in df_kdrama.columns]\nfor col in missing_columns:\n    df_kdrama[col] = \"\"\n# Merge the two datasets based on the title column\ncombined_df = pd.merge(\n    df_dramalist, df_kdrama, on=\"title\", how=\"outer\", suffixes=(\"_file1\", \"_file2\")\n)\n# Fill missing values from file2 into file1 columns, only if the suffixed columns exist\nfor col in df_dramalist.columns:\n    if col == \"title\":",
+        "peekOfCode": "input_file = os.path.join(os.path.dirname(__file__), \"combined_kdrama_dataset.csv\")\ncombined_df = pd.read_csv(input_file, dtype=str)\ndef extract_years(date_str):\n    if not isinstance(date_str, str):\n        return \"_\"\n    # Find all 4-digit years\n    years = re.findall(r\"(19|20)\\d{2}\", date_str)\n    if years:\n        # Return the highest year as string\n        return max(years, key=int)",
         "detail": "data_scrapper.dataset.merger",
         "documentation": {}
     },
@@ -561,70 +642,25 @@
         "kind": 5,
         "importPath": "data_scrapper.dataset.merger",
         "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "combined_df = pd.merge(\n    df_dramalist, df_kdrama, on=\"title\", how=\"outer\", suffixes=(\"_file1\", \"_file2\")\n)\n# Fill missing values from file2 into file1 columns, only if the suffixed columns exist\nfor col in df_dramalist.columns:\n    if col == \"title\":\n        continue  # title is the merge key\n    col_file1 = col + \"_file1\"\n    col_file2 = col + \"_file2\"\n    if col_file1 in combined_df.columns and col_file2 in combined_df.columns:",
+        "peekOfCode": "combined_df = pd.read_csv(input_file, dtype=str)\ndef extract_years(date_str):\n    if not isinstance(date_str, str):\n        return \"_\"\n    # Find all 4-digit years\n    years = re.findall(r\"(19|20)\\d{2}\", date_str)\n    if years:\n        # Return the highest year as string\n        return max(years, key=int)\n    # Try to extract year from date formats like 10/12/2019",
         "detail": "data_scrapper.dataset.merger",
         "documentation": {}
     },
     {
-        "label": "extra_cols",
+        "label": "output_csv",
         "kind": 5,
         "importPath": "data_scrapper.dataset.merger",
         "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "extra_cols = [col for col in df_kdrama.columns if col not in df_dramalist.columns]\nfor col in extra_cols:\n    if col in combined_df.columns:\n        continue\n    if col in df_kdrama.columns:\n        combined_df[col] = df_kdrama[col]\n# Drop temporary columns created during merging\ncolumns_to_drop = [\n    col\n    for col in combined_df.columns",
+        "peekOfCode": "output_csv = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset_cleaned.csv\"\n)\noutput_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset_cleaned.xlsx\"\n)\ncombined_df.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ncombined_df.to_excel(output_excel, index=False)\nprint(f\"Cleaned dataset saved to: {output_csv}\")\nprint(f\"Cleaned dataset also saved to: {output_excel}\")",
         "detail": "data_scrapper.dataset.merger",
         "documentation": {}
     },
     {
-        "label": "columns_to_drop",
+        "label": "output_excel",
         "kind": 5,
         "importPath": "data_scrapper.dataset.merger",
         "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "columns_to_drop = [\n    col\n    for col in combined_df.columns\n    if col.endswith(\"_file1\") or col.endswith(\"_file2\")\n]\ncombined_df.drop(columns=columns_to_drop, inplace=True)\n# Reorder columns: dramalist columns first, then extra columns\nfinal_columns = list(df_dramalist.columns) + [\n    col for col in extra_cols if col in combined_df.columns\n]",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "final_columns",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "final_columns = list(df_dramalist.columns) + [\n    col for col in extra_cols if col in combined_df.columns\n]\ncombined_df = combined_df[final_columns]\n# Clean up date columns: remove time if present (keep only date part as string)\nfor col in combined_df.columns:\n    if \"date\" in col.lower() or \"published\" in col.lower():\n        # If column is datetime, convert to string without time\n        if is_datetime64_any_dtype(combined_df[col]):\n            combined_df[col] = combined_df[col].dt.strftime(\"%Y-%m-%d\")",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "combined_df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "combined_df = combined_df[final_columns]\n# Clean up date columns: remove time if present (keep only date part as string)\nfor col in combined_df.columns:\n    if \"date\" in col.lower() or \"published\" in col.lower():\n        # If column is datetime, convert to string without time\n        if is_datetime64_any_dtype(combined_df[col]):\n            combined_df[col] = combined_df[col].dt.strftime(\"%Y-%m-%d\")\n        # If string, remove time part if present\n        else:\n            combined_df[col] = (",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "combined_df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "combined_df = combined_df.fillna(\"_\").replace(\"-\", \"_\")\n# Save the combined dataset as CSV\noutput_combined_file = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset.csv\"\n)\ncombined_df.to_csv(output_combined_file, index=False, encoding=\"utf-8-sig\")\n# Save the combined dataset as Excel\noutput_combined_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset.xlsx\"\n)",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "output_combined_file",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "output_combined_file = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset.csv\"\n)\ncombined_df.to_csv(output_combined_file, index=False, encoding=\"utf-8-sig\")\n# Save the combined dataset as Excel\noutput_combined_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset.xlsx\"\n)\ncombined_df.to_excel(output_combined_excel, index=False)\nprint(f\"Combined dataset saved to: {output_combined_file}\")",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "output_combined_excel",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "output_combined_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset.xlsx\"\n)\ncombined_df.to_excel(output_combined_excel, index=False)\nprint(f\"Combined dataset saved to: {output_combined_file}\")\nprint(f\"Combined dataset also saved to: {output_combined_excel}\")\nprint(f\"Total rows: {len(combined_df)}\")\nprint(f\"Columns: {list(combined_df.columns)}\")",
+        "peekOfCode": "output_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset_cleaned.xlsx\"\n)\ncombined_df.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ncombined_df.to_excel(output_excel, index=False)\nprint(f\"Cleaned dataset saved to: {output_csv}\")\nprint(f\"Cleaned dataset also saved to: {output_excel}\")\nprint(f\"Total rows: {len(combined_df)}\")\nprint(f\"Columns: {list(combined_df.columns)}\")",
         "detail": "data_scrapper.dataset.merger",
         "documentation": {}
     },
@@ -696,7 +732,7 @@
         "kind": 2,
         "importPath": "data_scrapper.DramaList_Scrapper.scrapper_2",
         "description": "data_scrapper.DramaList_Scrapper.scrapper_2",
-        "peekOfCode": "def remove_emojis(text):\n    return re.sub(r'[\\U00010000-\\U0010ffff]', '', text)\n# -------------------------------------------\n# Download single page\n# -------------------------------------------\nasync def download_page(i, url, context, output_dir, semaphore):\n    url = url.strip()\n    if not url or url.lower() in [\"n/a\", \"none\", \"null\"] or not url.startswith(\"https://mydramalist.com/\"):\n        print(f\"[{i}] Skipping invalid URL: {url}\")\n        return",
+        "peekOfCode": "def remove_emojis(text):\n    return re.sub(r\"[\\U00010000-\\U0010ffff]\", \"\", text)\n# -------------------------------------------\n# Download single page\n# -------------------------------------------\nasync def download_page(i, url, context, output_dir, semaphore):\n    url = url.strip()\n    if (\n        not url\n        or url.lower() in [\"n/a\", \"none\", \"null\"]",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper_2",
         "documentation": {}
     },
@@ -707,6 +743,222 @@
         "description": "data_scrapper.DramaList_Scrapper.scrapper_2",
         "peekOfCode": "USER_AGENTS = [\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\",\n    \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15\",\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0\",\n    \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36\",\n]\n# -------------------------------------------\n# Block unnecessary resources\n# -------------------------------------------\nasync def block_images_and_fonts(route: Route):",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper_2",
+        "documentation": {}
+    },
+    {
+        "label": "get_rating_value",
+        "kind": 2,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "def get_rating_value(label):\n    tag = soup.select_one(f'li.list-item b.inline:-soup-contains(\"{label}\")')\n    if tag:\n        return tag.parent.get_text().replace(label + \":\", \"\").strip()\n    return None\nratings = {}\n# Score: extract only numeric value\nscore_text = get_rating_value(\"Score\")\nif score_text:\n    match = re.search(r\"[\\d\\.]+\", score_text)",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "html_path",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "html_path = r\"D:\\Projects\\SeoulMate\\data_scrapper\\DramaList_Scrapper\\dramas_html\\799280-my-secret-vampire.html\"\nif not os.path.exists(html_path):\n    raise FileNotFoundError(f\"HTML file not found: {html_path}\")\n# ---------------------------\n# Read HTML file\n# ---------------------------\nwith open(html_path, \"r\", encoding=\"utf-8\") as f:\n    html_content = f.read()\nsoup = BeautifulSoup(html_content, \"html.parser\")\n# ---------------------------",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "soup",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "soup = BeautifulSoup(html_content, \"html.parser\")\n# ---------------------------\n# 1. Titles\n# ---------------------------\ntitles = {}\nnative_tag = soup.select_one(\"li.list-item b.inline + a\")\ntitles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "titles",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "titles = {}\nnative_tag = soup.select_one(\"li.list-item b.inline + a\")\ntitles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "native_tag",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "native_tag = soup.select_one(\"li.list-item b.inline + a\")\ntitles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "titles[\"native\"]",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "titles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "english_tag",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "english_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "titles[\"english\"]",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "titles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "aka_span",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "aka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):\n    related.append({\"title\": rel.text.strip(), \"url\": rel.get(\"href\", \"\")})",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "titles[\"also_known_as\"]",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "titles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):\n    related.append({\"title\": rel.text.strip(), \"url\": rel.get(\"href\", \"\")})\n# ---------------------------",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "related",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "related = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):\n    related.append({\"title\": rel.text.strip(), \"url\": rel.get(\"href\", \"\")})\n# ---------------------------\n# 3. Directors\n# ---------------------------\ndirectors = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Director\") ~ a')\n]",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "directors",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "directors = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Director\") ~ a')\n]\n# ---------------------------\n# 4. Screenwriters\n# ---------------------------\nscreenwriters = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Screenwriter\") ~ a')",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "screenwriters",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "screenwriters = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Screenwriter\") ~ a')\n]\n# ---------------------------\n# 5. Genres\n# ---------------------------\ngenres = [a.text.strip() for a in soup.select(\"li.show-genres a.text-primary\")]\n# ---------------------------\n# 6. Tags",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "genres",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "genres = [a.text.strip() for a in soup.select(\"li.show-genres a.text-primary\")]\n# ---------------------------\n# 6. Tags\n# ---------------------------\ntags = [a.text.strip() for a in soup.select(\"li.show-tags span a.text-primary\")]\n# ---------------------------\n# 7. Country, type, episodes, aired info\n# ---------------------------\ninfo = {}\nfor li in soup.select(\"ul.list.hidden-md-up li\"):",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "tags",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "tags = [a.text.strip() for a in soup.select(\"li.show-tags span a.text-primary\")]\n# ---------------------------\n# 7. Country, type, episodes, aired info\n# ---------------------------\ninfo = {}\nfor li in soup.select(\"ul.list.hidden-md-up li\"):\n    key_tag = li.select_one(\"b.inline\")\n    if key_tag:\n        key = key_tag.text.strip(\":\")\n        val = li.text.replace(key + \":\", \"\").strip()",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "info",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "info = {}\nfor li in soup.select(\"ul.list.hidden-md-up li\"):\n    key_tag = li.select_one(\"b.inline\")\n    if key_tag:\n        key = key_tag.text.strip(\":\")\n        val = li.text.replace(key + \":\", \"\").strip()\n        info[key] = val\n# ---------------------------\n# 8. Ratings & Popularity\n# ---------------------------",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "ratings",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "ratings = {}\n# Score: extract only numeric value\nscore_text = get_rating_value(\"Score\")\nif score_text:\n    match = re.search(r\"[\\d\\.]+\", score_text)\n    ratings[\"score\"] = float(match.group()) if match else None\nelse:\n    ratings[\"score\"] = None\nratings[\"ranked\"] = get_rating_value(\"Ranked\")\nratings[\"popularity\"] = get_rating_value(\"Popularity\")",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "score_text",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "score_text = get_rating_value(\"Score\")\nif score_text:\n    match = re.search(r\"[\\d\\.]+\", score_text)\n    ratings[\"score\"] = float(match.group()) if match else None\nelse:\n    ratings[\"score\"] = None\nratings[\"ranked\"] = get_rating_value(\"Ranked\")\nratings[\"popularity\"] = get_rating_value(\"Popularity\")\nratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "ratings[\"ranked\"]",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "ratings[\"ranked\"] = get_rating_value(\"Ranked\")\nratings[\"popularity\"] = get_rating_value(\"Popularity\")\nratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------\n# 9. Cast\n# ---------------------------\ncast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "ratings[\"popularity\"]",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "ratings[\"popularity\"] = get_rating_value(\"Popularity\")\nratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------\n# 9. Cast\n# ---------------------------\ncast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"\n    role_tag = li.select_one(\"div.text-ellipsis small\")",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "ratings[\"content_rating\"]",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "ratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------\n# 9. Cast\n# ---------------------------\ncast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"\n    role_tag = li.select_one(\"div.text-ellipsis small\")\n    role = role_tag.text.strip() if role_tag else \"\"",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "cast_list",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "cast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"\n    role_tag = li.select_one(\"div.text-ellipsis small\")\n    role = role_tag.text.strip() if role_tag else \"\"\n    role_type_tag = li.select_one(\"small.text-muted\")\n    role_type = role_type_tag.text.strip() if role_type_tag else \"\"\n    img_tag = li.select_one(\"div.credits-left img\")\n    img_url = img_tag.get(\"data-src\", \"\") if img_tag else \"\"",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "drama_data",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "drama_data = {\n    \"titles\": titles,\n    \"related_content\": related,\n    \"directors\": directors,\n    \"screenwriters\": screenwriters,\n    \"genres\": genres,\n    \"tags\": tags,\n    \"info\": info,\n    \"ratings\": ratings,\n    \"cast\": cast_list,",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
+        "documentation": {}
+    },
+    {
+        "label": "output_file",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.test",
+        "description": "data_scrapper.DramaList_Scrapper.test",
+        "peekOfCode": "output_file = r\"D:\\Projects\\SeoulMate\\data_scrapper\\DramaList_Scrapper\\output.json\"\nwith open(output_file, \"w\", encoding=\"utf-8\") as f:\n    json.dump(drama_data, f, indent=4, ensure_ascii=False)\nprint(f\"Data extracted successfully! Saved to {output_file}\")",
+        "detail": "data_scrapper.DramaList_Scrapper.test",
         "documentation": {}
     },
     {
