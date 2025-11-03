@@ -116,6 +116,76 @@
         "documentation": {}
     },
     {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "aiohttp",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "aiohttp",
+        "description": "aiohttp",
+        "detail": "aiohttp",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "aiofiles",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "aiofiles",
+        "description": "aiofiles",
+        "detail": "aiofiles",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "importPath": "tqdm.asyncio",
+        "description": "tqdm.asyncio",
+        "isExtraImport": true,
+        "detail": "tqdm.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "urlparse",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
         "label": "json",
         "kind": 6,
         "isExtraImport": true,
@@ -131,15 +201,6 @@
         "importPath": "csv",
         "description": "csv",
         "detail": "csv",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
         "documentation": {}
     },
     {
@@ -172,33 +233,6 @@
         "description": "lxml",
         "isExtraImport": true,
         "detail": "lxml",
-        "documentation": {}
-    },
-    {
-        "label": "asyncio",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "asyncio",
-        "description": "asyncio",
-        "detail": "asyncio",
-        "documentation": {}
-    },
-    {
-        "label": "random",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "random",
-        "description": "random",
-        "detail": "random",
-        "documentation": {}
-    },
-    {
-        "label": "pandas",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pandas",
-        "description": "pandas",
-        "detail": "pandas",
         "documentation": {}
     },
     {
@@ -267,12 +301,29 @@
         "documentation": {}
     },
     {
+        "label": "sync_playwright",
+        "importPath": "playwright.sync_api",
+        "description": "playwright.sync_api",
+        "isExtraImport": true,
+        "detail": "playwright.sync_api",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "requests",
         "description": "requests",
         "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
         "documentation": {}
     },
     {
@@ -297,23 +348,6 @@
         "description": "selenium.webdriver.chrome.options",
         "isExtraImport": true,
         "detail": "selenium.webdriver.chrome.options",
-        "documentation": {}
-    },
-    {
-        "label": "time",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "time",
-        "description": "time",
-        "detail": "time",
-        "documentation": {}
-    },
-    {
-        "label": "sync_playwright",
-        "importPath": "playwright.sync_api",
-        "description": "playwright.sync_api",
-        "isExtraImport": true,
-        "detail": "playwright.sync_api",
         "documentation": {}
     },
     {
@@ -452,6 +486,123 @@
         "documentation": {}
     },
     {
+        "label": "kdrama_file",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "kdrama_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset.csv\")\noutput_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_renamed.csv\")\n# Read the kdrama_dataset.csv\ndf_kdrama = pd.read_csv(kdrama_file)\n# Column mapping from kdrama_dataset to dramalist format\n# dramalist_all_dramas headers: title, alternate_names, description, publisher, country, genres, rating_value, rating_count, date_published, keywords, actors\n# kdrama_dataset headers: Title, Also Known As, Written By, Director, Cast, Genre, Network, Episodes, Release Dates, Release Years, Poster, Description\ncolumn_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "output_file",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "output_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_renamed.csv\")\n# Read the kdrama_dataset.csv\ndf_kdrama = pd.read_csv(kdrama_file)\n# Column mapping from kdrama_dataset to dramalist format\n# dramalist_all_dramas headers: title, alternate_names, description, publisher, country, genres, rating_value, rating_count, date_published, keywords, actors\n# kdrama_dataset headers: Title, Also Known As, Written By, Director, Cast, Genre, Network, Episodes, Release Dates, Release Years, Poster, Description\ncolumn_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "df_kdrama",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "df_kdrama = pd.read_csv(kdrama_file)\n# Column mapping from kdrama_dataset to dramalist format\n# dramalist_all_dramas headers: title, alternate_names, description, publisher, country, genres, rating_value, rating_count, date_published, keywords, actors\n# kdrama_dataset headers: Title, Also Known As, Written By, Director, Cast, Genre, Network, Episodes, Release Dates, Release Years, Poster, Description\ncolumn_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",\n    \"Network\": \"publisher\",\n    \"Genre\": \"genres\",",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "column_mapping",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "column_mapping = {\n    \"Title\": \"title\",\n    \"Also Known As\": \"alternate_names\",\n    \"Description\": \"description\",\n    \"Network\": \"publisher\",\n    \"Genre\": \"genres\",\n    \"Cast\": \"actors\",\n    \"Release Dates\": \"date_published\",\n    \"Poster\": \"url\",  # Using Poster for url since dramalist has url field\n}",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "df_renamed",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "df_renamed = df_kdrama.rename(columns=column_mapping)\n# Add missing columns with empty values\nmissing_columns = [\"country\", \"rating_value\", \"rating_count\", \"keywords\"]\nfor col in missing_columns:\n    if col not in df_renamed.columns:\n        df_renamed[col] = \"\"\n# Reorder columns to match dramalist format, preserving order and adding extra columns at the end\ndramalist_columns = [\n    \"title\",\n    \"alternate_names\",",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "missing_columns",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "missing_columns = [\"country\", \"rating_value\", \"rating_count\", \"keywords\"]\nfor col in missing_columns:\n    if col not in df_renamed.columns:\n        df_renamed[col] = \"\"\n# Reorder columns to match dramalist format, preserving order and adding extra columns at the end\ndramalist_columns = [\n    \"title\",\n    \"alternate_names\",\n    \"description\",\n    \"publisher\",",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "dramalist_columns",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "dramalist_columns = [\n    \"title\",\n    \"alternate_names\",\n    \"description\",\n    \"publisher\",\n    \"country\",\n    \"genres\",\n    \"rating_value\",\n    \"rating_count\",\n    \"date_published\",",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "final_columns",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "final_columns = [col for col in dramalist_columns if col in df_renamed.columns]\n# Add any remaining columns that weren't in the target format at the end\nremaining_cols = [col for col in df_renamed.columns if col not in dramalist_columns]\nfinal_columns.extend(remaining_cols)\ndf_final = df_renamed[final_columns]\n# Save the renamed dataset\ndf_final.to_csv(output_file, index=False, encoding=\"utf-8-sig\")\nprint(f\"Renamed dataset saved to: {output_file}\")\nprint(f\"Original rows: {len(df_kdrama)}\")\nprint(f\"Final rows: {len(df_final)}\")",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "remaining_cols",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "remaining_cols = [col for col in df_renamed.columns if col not in dramalist_columns]\nfinal_columns.extend(remaining_cols)\ndf_final = df_renamed[final_columns]\n# Save the renamed dataset\ndf_final.to_csv(output_file, index=False, encoding=\"utf-8-sig\")\nprint(f\"Renamed dataset saved to: {output_file}\")\nprint(f\"Original rows: {len(df_kdrama)}\")\nprint(f\"Final rows: {len(df_final)}\")\nprint(f\"Final columns: {list(df_final.columns)}\")",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "df_final",
+        "kind": 5,
+        "importPath": "data_scrapper.dataset.merger",
+        "description": "data_scrapper.dataset.merger",
+        "peekOfCode": "df_final = df_renamed[final_columns]\n# Save the renamed dataset\ndf_final.to_csv(output_file, index=False, encoding=\"utf-8-sig\")\nprint(f\"Renamed dataset saved to: {output_file}\")\nprint(f\"Original rows: {len(df_kdrama)}\")\nprint(f\"Final rows: {len(df_final)}\")\nprint(f\"Final columns: {list(df_final.columns)}\")",
+        "detail": "data_scrapper.dataset.merger",
+        "documentation": {}
+    },
+    {
+        "label": "sanitize_filename",
+        "kind": 2,
+        "importPath": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "description": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "peekOfCode": "def sanitize_filename(name):\n    \"\"\"Remove invalid characters for safe file naming.\"\"\"\n    return re.sub(r'[\\\\/*?:\"<>|]', \"_\", str(name)).strip()\nUSER_AGENTS = [\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \"\n    \"(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36\",\n    \"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5_2) AppleWebKit/605.1.15 \"\n    \"(KHTML, like Gecko) Version/17.0 Safari/605.1.15\",\n    \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0\",\n    \"Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 \"",
+        "detail": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "documentation": {}
+    },
+    {
+        "label": "download_images_from_csv",
+        "kind": 2,
+        "importPath": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "description": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "peekOfCode": "def download_images_from_csv(csv_path, output_folder, concurrency=100):\n    \"\"\"Download only missing images from a CSV/Excel file.\"\"\"\n    # Read data\n    if csv_path.lower().endswith(('.xlsx', '.xls')):\n        df = pd.read_excel(csv_path)\n    else:\n        df = pd.read_csv(csv_path, sep=None, engine=\"python\")\n    if \"title\" not in df.columns or \"image\" not in df.columns:\n        raise ValueError(\"The file must contain 'title' and 'image' columns.\")\n    os.makedirs(output_folder, exist_ok=True)",
+        "detail": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "documentation": {}
+    },
+    {
+        "label": "USER_AGENTS",
+        "kind": 5,
+        "importPath": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "description": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "peekOfCode": "USER_AGENTS = [\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \"\n    \"(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36\",\n    \"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5_2) AppleWebKit/605.1.15 \"\n    \"(KHTML, like Gecko) Version/17.0 Safari/605.1.15\",\n    \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0\",\n    \"Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 \"\n    \"(KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36\",\n    \"Mozilla/5.0 (iPhone; CPU iPhone OS 17_3 like Mac OS X) \"\n    \"AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1\",",
+        "detail": "data_scrapper.DramaList_Scrapper.dramaImage",
+        "documentation": {}
+    },
+    {
         "label": "extract_mydramalist_data",
         "kind": 2,
         "importPath": "data_scrapper.DramaList_Scrapper.scrapper",
@@ -508,19 +659,19 @@
     {
         "label": "extract_drama_data_from_html",
         "kind": 2,
-        "importPath": "data_scrapper.html_extractor",
-        "description": "data_scrapper.html_extractor",
+        "importPath": "data_scrapper.html_extractor_and_reader",
+        "description": "data_scrapper.html_extractor_and_reader",
         "peekOfCode": "def extract_drama_data_from_html(html_content):\n    \"\"\"\n    Extracts drama information from the given HTML content string.\n    Returns a list of dictionaries.\n    \"\"\"\n    soup = BeautifulSoup(html_content, 'html.parser')\n    drama_items = soup.find_all('div', class_='box')\n    extracted_data = []\n    BASE_URL = \"https://mydramalist.com\"\n    for item in drama_items:",
-        "detail": "data_scrapper.html_extractor",
+        "detail": "data_scrapper.html_extractor_and_reader",
         "documentation": {}
     },
     {
         "label": "extract_from_folder",
         "kind": 2,
-        "importPath": "data_scrapper.html_extractor",
-        "description": "data_scrapper.html_extractor",
+        "importPath": "data_scrapper.html_extractor_and_reader",
+        "description": "data_scrapper.html_extractor_and_reader",
         "peekOfCode": "def extract_from_folder(folder_path, output_csv):\n    \"\"\"\n    Loops through all .html files in the given folder,\n    extracts drama data from each file, and saves everything to one CSV.\n    \"\"\"\n    all_data = []\n    for filename in os.listdir(folder_path):\n        if filename.lower().endswith(\".html\"):\n            file_path = os.path.join(folder_path, filename)\n            print(f\"Processing file: {filename}\")",
-        "detail": "data_scrapper.html_extractor",
+        "detail": "data_scrapper.html_extractor_and_reader",
         "documentation": {}
     },
     {
@@ -544,154 +695,154 @@
     {
         "label": "remove_refs",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
+        "importPath": "data_scrapper.wiki_scrapper_playwright",
+        "description": "data_scrapper.wiki_scrapper_playwright",
         "peekOfCode": "def remove_refs(text):\n    \"\"\"Remove all reference markers like [1], [ko], [citation needed].\"\"\"\n    return re.sub(r'\\[.*?\\]', '', str(text))\ndef clean_multiline(text):\n    \"\"\"Convert multiline text to properly comma-separated clean string.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\"]:\n        return \"-\"\n    text = remove_refs(text)\n    parts = re.split(r'[\\n\\r]+', str(text))\n    parts = [p.strip() for p in parts if p.strip()]",
-        "detail": "data_scrapper.scrapper",
+        "detail": "data_scrapper.wiki_scrapper_playwright",
         "documentation": {}
     },
     {
         "label": "clean_multiline",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
+        "importPath": "data_scrapper.wiki_scrapper_playwright",
+        "description": "data_scrapper.wiki_scrapper_playwright",
         "peekOfCode": "def clean_multiline(text):\n    \"\"\"Convert multiline text to properly comma-separated clean string.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\"]:\n        return \"-\"\n    text = remove_refs(text)\n    parts = re.split(r'[\\n\\r]+', str(text))\n    parts = [p.strip() for p in parts if p.strip()]\n    return \", \".join(parts) if parts else \"-\"\ndef clean_description(desc):\n    \"\"\"Clean [1], etc. and normalize spaces.\"\"\"",
-        "detail": "data_scrapper.scrapper",
+        "detail": "data_scrapper.wiki_scrapper_playwright",
         "documentation": {}
     },
     {
         "label": "clean_description",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
+        "importPath": "data_scrapper.wiki_scrapper_playwright",
+        "description": "data_scrapper.wiki_scrapper_playwright",
         "peekOfCode": "def clean_description(desc):\n    \"\"\"Clean [1], etc. and normalize spaces.\"\"\"\n    if not desc:\n        return \"-\"\n    desc = remove_refs(desc)\n    desc = re.sub(r'\\s+', ' ', desc).strip()\n    return desc if desc else \"-\"\ndef extract_years_from_release(text):\n    \"\"\"Extract release year(s) from release date text.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\", \"-\"]:",
-        "detail": "data_scrapper.scrapper",
+        "detail": "data_scrapper.wiki_scrapper_playwright",
         "documentation": {}
     },
     {
         "label": "extract_years_from_release",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "def extract_years_from_release(text):\n    \"\"\"Extract release year(s) from release date text.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\", \"-\"]:\n        return \"-\"\n    text = remove_refs(text)\n    # Match 4-digit years (e.g., 2004, 2015, 2020)\n    years = re.findall(r'(19|20)\\d{2}', text)\n    # Join unique years (sorted in order of appearance)\n    if not years:\n        return \"-\"",
-        "detail": "data_scrapper.scrapper",
+        "importPath": "data_scrapper.wiki_scrapper_playwright",
+        "description": "data_scrapper.wiki_scrapper_playwright",
+        "peekOfCode": "def extract_years_from_release(text):\n    \"\"\"Extract release year(s) from release date text.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\", \"-\"]:\n        return \"-\"\n    text = remove_refs(text)\n    full_years = re.findall(r'(?:19|20)\\d{2}', text)\n    unique_years = list(dict.fromkeys(full_years))  # preserve order\n    return \", \".join(unique_years) if unique_years else \"-\"\n# =========================================================\n# Fallback: Description method",
+        "detail": "data_scrapper.wiki_scrapper_playwright",
         "documentation": {}
     },
     {
         "label": "get_description_fallback",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
+        "importPath": "data_scrapper.wiki_scrapper_playwright",
+        "description": "data_scrapper.wiki_scrapper_playwright",
         "peekOfCode": "def get_description_fallback(url):\n    headers = {\n        \"User-Agent\": (\n            \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) \"\n            \"AppleWebKit/537.36 (KHTML, like Gecko) \"\n            \"Chrome/118.0.0.0 Safari/537.36\"\n        )\n    }\n    try:\n        response = requests.get(url, headers=headers, timeout=10)",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "chrome_options",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "chrome_options = Options()\nchrome_options.add_argument(\"--headless\")\nchrome_options.add_argument(\"--no-sandbox\")\nchrome_options.add_argument(\"--disable-dev-shm-usage\")\ndriver = webdriver.Chrome(options=chrome_options)\n# ---------------------------\n# Wikipedia main list\n# ---------------------------\nbase_url = \"https://en.wikipedia.org/wiki/List_of_South_Korean_dramas\"\ndriver.get(base_url)",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "driver",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "driver = webdriver.Chrome(options=chrome_options)\n# ---------------------------\n# Wikipedia main list\n# ---------------------------\nbase_url = \"https://en.wikipedia.org/wiki/List_of_South_Korean_dramas\"\ndriver.get(base_url)\ntime.sleep(3)\n# ---------------------------\n# Collect all drama links\n# ---------------------------",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "base_url",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "base_url = \"https://en.wikipedia.org/wiki/List_of_South_Korean_dramas\"\ndriver.get(base_url)\ntime.sleep(3)\n# ---------------------------\n# Collect all drama links\n# ---------------------------\nprint(\"Collecting drama links...\")\ndrama_links = []\nelems = driver.find_elements(By.CLASS_NAME, \"div-col\")\nfor elem in elems:",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "drama_links",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "drama_links = []\nelems = driver.find_elements(By.CLASS_NAME, \"div-col\")\nfor elem in elems:\n    links = elem.find_elements(By.CSS_SELECTOR, \"a[href]\")\n    for link in links:\n        href = link.get_attribute(\"href\")\n        if href and \"wiki\" in href and \"redlink\" not in href:\n            drama_links.append(href)\ndrama_links = list(set(drama_links))\nprint(f\"Found {len(drama_links)} drama links\")",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "elems",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "elems = driver.find_elements(By.CLASS_NAME, \"div-col\")\nfor elem in elems:\n    links = elem.find_elements(By.CSS_SELECTOR, \"a[href]\")\n    for link in links:\n        href = link.get_attribute(\"href\")\n        if href and \"wiki\" in href and \"redlink\" not in href:\n            drama_links.append(href)\ndrama_links = list(set(drama_links))\nprint(f\"Found {len(drama_links)} drama links\")\n# ---------------------------",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "drama_links",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "drama_links = list(set(drama_links))\nprint(f\"Found {len(drama_links)} drama links\")\n# ---------------------------\n# Scrape each drama page\n# ---------------------------\ntitles, alt_titles, writers, directors, casts, genres, networks, episodes, releases, release_years, posters, descriptions = [], [], [], [], [], [], [], [], [], [], [], []\nfor i, url in enumerate(drama_links):  # you can limit with [:10] for testing\n    print(f\"\\nScraping ({i+1}/{len(drama_links)}): {url}\")\n    driver.get(url)\n    time.sleep(1.5)",
-        "detail": "data_scrapper.scrapper",
-        "documentation": {}
-    },
-    {
-        "label": "df",
-        "kind": 5,
-        "importPath": "data_scrapper.scrapper",
-        "description": "data_scrapper.scrapper",
-        "peekOfCode": "df = pd.DataFrame({\n    \"Title\": titles,\n    \"Also Known As\": alt_titles,\n    \"Written By\": writers,\n    \"Director\": directors,\n    \"Cast\": casts,\n    \"Genre\": genres,\n    \"Network\": networks,\n    \"Episodes\": episodes,\n    \"Release Dates\": releases,",
-        "detail": "data_scrapper.scrapper",
+        "detail": "data_scrapper.wiki_scrapper_playwright",
         "documentation": {}
     },
     {
         "label": "remove_refs",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper_playwright",
-        "description": "data_scrapper.scrapper_playwright",
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
         "peekOfCode": "def remove_refs(text):\n    \"\"\"Remove all reference markers like [1], [ko], [citation needed].\"\"\"\n    return re.sub(r'\\[.*?\\]', '', str(text))\ndef clean_multiline(text):\n    \"\"\"Convert multiline text to properly comma-separated clean string.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\"]:\n        return \"-\"\n    text = remove_refs(text)\n    parts = re.split(r'[\\n\\r]+', str(text))\n    parts = [p.strip() for p in parts if p.strip()]",
-        "detail": "data_scrapper.scrapper_playwright",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
         "documentation": {}
     },
     {
         "label": "clean_multiline",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper_playwright",
-        "description": "data_scrapper.scrapper_playwright",
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
         "peekOfCode": "def clean_multiline(text):\n    \"\"\"Convert multiline text to properly comma-separated clean string.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\"]:\n        return \"-\"\n    text = remove_refs(text)\n    parts = re.split(r'[\\n\\r]+', str(text))\n    parts = [p.strip() for p in parts if p.strip()]\n    return \", \".join(parts) if parts else \"-\"\ndef clean_description(desc):\n    \"\"\"Clean [1], etc. and normalize spaces.\"\"\"",
-        "detail": "data_scrapper.scrapper_playwright",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
         "documentation": {}
     },
     {
         "label": "clean_description",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper_playwright",
-        "description": "data_scrapper.scrapper_playwright",
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
         "peekOfCode": "def clean_description(desc):\n    \"\"\"Clean [1], etc. and normalize spaces.\"\"\"\n    if not desc:\n        return \"-\"\n    desc = remove_refs(desc)\n    desc = re.sub(r'\\s+', ' ', desc).strip()\n    return desc if desc else \"-\"\ndef extract_years_from_release(text):\n    \"\"\"Extract release year(s) from release date text.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\", \"-\"]:",
-        "detail": "data_scrapper.scrapper_playwright",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
         "documentation": {}
     },
     {
         "label": "extract_years_from_release",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper_playwright",
-        "description": "data_scrapper.scrapper_playwright",
-        "peekOfCode": "def extract_years_from_release(text):\n    \"\"\"Extract release year(s) from release date text.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\", \"-\"]:\n        return \"-\"\n    text = remove_refs(text)\n    full_years = re.findall(r'(?:19|20)\\d{2}', text)\n    unique_years = list(dict.fromkeys(full_years))  # preserve order\n    return \", \".join(unique_years) if unique_years else \"-\"\n# =========================================================\n# Fallback: Description method",
-        "detail": "data_scrapper.scrapper_playwright",
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "def extract_years_from_release(text):\n    \"\"\"Extract release year(s) from release date text.\"\"\"\n    if not text or str(text).strip().lower() in [\"n/a\", \"na\", \"-\"]:\n        return \"-\"\n    text = remove_refs(text)\n    # Match 4-digit years (e.g., 2004, 2015, 2020)\n    years = re.findall(r'(19|20)\\d{2}', text)\n    # Join unique years (sorted in order of appearance)\n    if not years:\n        return \"-\"",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
         "documentation": {}
     },
     {
         "label": "get_description_fallback",
         "kind": 2,
-        "importPath": "data_scrapper.scrapper_playwright",
-        "description": "data_scrapper.scrapper_playwright",
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
         "peekOfCode": "def get_description_fallback(url):\n    headers = {\n        \"User-Agent\": (\n            \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) \"\n            \"AppleWebKit/537.36 (KHTML, like Gecko) \"\n            \"Chrome/118.0.0.0 Safari/537.36\"\n        )\n    }\n    try:\n        response = requests.get(url, headers=headers, timeout=10)",
-        "detail": "data_scrapper.scrapper_playwright",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "chrome_options",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "chrome_options = Options()\nchrome_options.add_argument(\"--headless\")\nchrome_options.add_argument(\"--no-sandbox\")\nchrome_options.add_argument(\"--disable-dev-shm-usage\")\ndriver = webdriver.Chrome(options=chrome_options)\n# ---------------------------\n# Wikipedia main list\n# ---------------------------\nbase_url = \"https://en.wikipedia.org/wiki/List_of_South_Korean_dramas\"\ndriver.get(base_url)",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "driver",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "driver = webdriver.Chrome(options=chrome_options)\n# ---------------------------\n# Wikipedia main list\n# ---------------------------\nbase_url = \"https://en.wikipedia.org/wiki/List_of_South_Korean_dramas\"\ndriver.get(base_url)\ntime.sleep(3)\n# ---------------------------\n# Collect all drama links\n# ---------------------------",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "base_url",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "base_url = \"https://en.wikipedia.org/wiki/List_of_South_Korean_dramas\"\ndriver.get(base_url)\ntime.sleep(3)\n# ---------------------------\n# Collect all drama links\n# ---------------------------\nprint(\"Collecting drama links...\")\ndrama_links = []\nelems = driver.find_elements(By.CLASS_NAME, \"div-col\")\nfor elem in elems:",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "drama_links",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "drama_links = []\nelems = driver.find_elements(By.CLASS_NAME, \"div-col\")\nfor elem in elems:\n    links = elem.find_elements(By.CSS_SELECTOR, \"a[href]\")\n    for link in links:\n        href = link.get_attribute(\"href\")\n        if href and \"wiki\" in href and \"redlink\" not in href:\n            drama_links.append(href)\ndrama_links = list(set(drama_links))\nprint(f\"Found {len(drama_links)} drama links\")",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "elems",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "elems = driver.find_elements(By.CLASS_NAME, \"div-col\")\nfor elem in elems:\n    links = elem.find_elements(By.CSS_SELECTOR, \"a[href]\")\n    for link in links:\n        href = link.get_attribute(\"href\")\n        if href and \"wiki\" in href and \"redlink\" not in href:\n            drama_links.append(href)\ndrama_links = list(set(drama_links))\nprint(f\"Found {len(drama_links)} drama links\")\n# ---------------------------",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "drama_links",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "drama_links = list(set(drama_links))\nprint(f\"Found {len(drama_links)} drama links\")\n# ---------------------------\n# Scrape each drama page\n# ---------------------------\ntitles, alt_titles, writers, directors, casts, genres, networks, episodes, releases, release_years, posters, descriptions = [], [], [], [], [], [], [], [], [], [], [], []\nfor i, url in enumerate(drama_links):  # you can limit with [:10] for testing\n    print(f\"\\nScraping ({i+1}/{len(drama_links)}): {url}\")\n    driver.get(url)\n    time.sleep(1.5)",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "data_scrapper.wiki_scrapper_selenium",
+        "description": "data_scrapper.wiki_scrapper_selenium",
+        "peekOfCode": "df = pd.DataFrame({\n    \"Title\": titles,\n    \"Also Known As\": alt_titles,\n    \"Written By\": writers,\n    \"Director\": directors,\n    \"Cast\": casts,\n    \"Genre\": genres,\n    \"Network\": networks,\n    \"Episodes\": episodes,\n    \"Release Dates\": releases,",
+        "detail": "data_scrapper.wiki_scrapper_selenium",
         "documentation": {}
     },
     {
