@@ -1,2 +1,11 @@
 drama_image/
 data_scrapper/dramas_html/
+.vscode/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+logs/
+.idea/
+*.log
