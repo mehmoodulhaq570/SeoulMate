@@ -84,6 +84,30 @@
         "documentation": {}
     },
     {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "InputExample",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "losses",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
         "label": "process",
         "importPath": "rapidfuzz",
         "description": "rapidfuzz",
@@ -113,15 +137,6 @@
         "description": "rank_bm25",
         "isExtraImport": true,
         "detail": "rank_bm25",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
         "documentation": {}
     },
     {
@@ -158,6 +173,15 @@
         "importPath": "aiofiles",
         "description": "aiofiles",
         "detail": "aiofiles",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
         "documentation": {}
     },
     {
@@ -292,14 +316,6 @@
         "documentation": {}
     },
     {
-        "label": "BeautifulSoup",
-        "importPath": "bs4",
-        "description": "bs4",
-        "isExtraImport": true,
-        "detail": "bs4",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -359,6 +375,23 @@
         "documentation": {}
     },
     {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "DataLoader",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
         "label": "fuzzy_match_title",
         "kind": 2,
         "importPath": "backend.app",
@@ -390,7 +423,7 @@
         "kind": 2,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "def root():\n    return {\"message\": \"Hybrid Kdrama Recommendation API v3.1 is running\"}\n@app.get(\"/recommend\")\ndef get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"),\n    top_n: int = 5\n):\n    \"\"\"Main recommendation endpoint.\"\"\"\n    return recommend(title, top_n)\n# ======================================================",
+        "peekOfCode": "def root():\n    return {\"message\": \"Hybrid Kdrama Recommendation API v3.1 is running\"}\n@app.get(\"/recommend\")\ndef get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"), top_n: int = 5\n):\n    \"\"\"Main recommendation endpoint.\"\"\"\n    return recommend(title, top_n)\n# ======================================================\n# STAGE 6 — RUN LOCALLY",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -399,7 +432,7 @@
         "kind": 2,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "def get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"),\n    top_n: int = 5\n):\n    \"\"\"Main recommendation endpoint.\"\"\"\n    return recommend(title, top_n)\n# ======================================================\n# STAGE 6 — RUN LOCALLY\n# ======================================================\nif __name__ == \"__main__\":",
+        "peekOfCode": "def get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"), top_n: int = 5\n):\n    \"\"\"Main recommendation endpoint.\"\"\"\n    return recommend(title, top_n)\n# ======================================================\n# STAGE 6 — RUN LOCALLY\n# ======================================================\nif __name__ == \"__main__\":\n    import uvicorn",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -408,7 +441,7 @@
         "kind": 5,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "MODEL_NAME = \"paraphrase-multilingual-mpnet-base-v2\"\nCROSS_ENCODER_MODEL = \"cross-encoder/ms-marco-MiniLM-L-6-v2\"\nMODEL_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\models\"\nINDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,",
+        "peekOfCode": "MODEL_NAME = \"paraphrase-multilingual-mpnet-base-v2\"\nCROSS_ENCODER_MODEL = \"cross-encoder/ms-marco-MiniLM-L-6-v2\"\nMODEL_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\models\"\nINDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -417,7 +450,7 @@
         "kind": 5,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "CROSS_ENCODER_MODEL = \"cross-encoder/ms-marco-MiniLM-L-6-v2\"\nMODEL_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\models\"\nINDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],",
+        "peekOfCode": "CROSS_ENCODER_MODEL = \"cross-encoder/ms-marco-MiniLM-L-6-v2\"\nMODEL_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\models\"\nINDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -426,7 +459,7 @@
         "kind": 5,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "MODEL_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\models\"\nINDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,",
+        "peekOfCode": "MODEL_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\models\"\nINDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -435,7 +468,7 @@
         "kind": 5,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "INDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],",
+        "peekOfCode": "INDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\n# ======================================================\n# FASTAPI SETUP\n# ======================================================\napp = FastAPI(title=\"Kdrama Hybrid Recommendation API\", version=\"3.1\")\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -494,177 +527,6 @@
         "documentation": {}
     },
     {
-        "label": "extract_notes_from_title",
-        "kind": 2,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "def extract_notes_from_title(title):\n    \"\"\"Extract text in () and [] from title and return cleaned title and notes\"\"\"\n    if not isinstance(title, str):\n        return title, \"_\"\n    # Find all content in parentheses and brackets\n    notes_list = []\n    # Extract content in parentheses ()\n    parentheses = re.findall(r'\\([^)]+\\)', title)\n    notes_list.extend(parentheses)\n    # Extract content in brackets []",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "clean_release_years_value",
-        "kind": 2,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "def clean_release_years_value(val):\n    \"\"\"Keep only the second year if multiple years exist, replace missing/- with _\"\"\"\n    if not isinstance(val, str):\n        return \"_\"\n    val = val.strip()\n    # Replace - with _\n    if val == \"-\" or val == \"\" or val == \"nan\":\n        return \"_\"\n    # If there are multiple years separated by comma, keep the second one (after comma)\n    if ',' in val:",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "input_file",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "input_file = os.path.join(os.path.dirname(__file__), \"kdrama_dataset.csv\")\ndf = pd.read_csv(input_file, dtype=str)\nprint(f\"Loaded {len(df)} rows\")\nprint(f\"Columns: {list(df.columns)}\")\n# Add 'notes' column if it doesn't exist\nif 'notes' not in df.columns:\n    df['notes'] = \"_\"\n    print(\"Added 'notes' column\")\n# Function to extract content from parentheses and brackets\ndef extract_notes_from_title(title):",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "df = pd.read_csv(input_file, dtype=str)\nprint(f\"Loaded {len(df)} rows\")\nprint(f\"Columns: {list(df.columns)}\")\n# Add 'notes' column if it doesn't exist\nif 'notes' not in df.columns:\n    df['notes'] = \"_\"\n    print(\"Added 'notes' column\")\n# Function to extract content from parentheses and brackets\ndef extract_notes_from_title(title):\n    \"\"\"Extract text in () and [] from title and return cleaned title and notes\"\"\"",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "cleaned_titles",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "cleaned_titles = []\nextracted_notes = []\nfor idx, title in enumerate(df['title']):\n    cleaned_title, notes = extract_notes_from_title(title)\n    cleaned_titles.append(cleaned_title)\n    extracted_notes.append(notes)\ndf['title'] = cleaned_titles\n# Update notes column (append to existing notes if any)\nfor idx, note in enumerate(extracted_notes):\n    existing_note = df.loc[idx, 'notes']",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "extracted_notes",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "extracted_notes = []\nfor idx, title in enumerate(df['title']):\n    cleaned_title, notes = extract_notes_from_title(title)\n    cleaned_titles.append(cleaned_title)\n    extracted_notes.append(notes)\ndf['title'] = cleaned_titles\n# Update notes column (append to existing notes if any)\nfor idx, note in enumerate(extracted_notes):\n    existing_note = df.loc[idx, 'notes']\n    if pd.isna(existing_note) or existing_note == \"_\" or existing_note == \"\":",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "df['title']",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "df['title'] = cleaned_titles\n# Update notes column (append to existing notes if any)\nfor idx, note in enumerate(extracted_notes):\n    existing_note = df.loc[idx, 'notes']\n    if pd.isna(existing_note) or existing_note == \"_\" or existing_note == \"\":\n        df.loc[idx, 'notes'] = note\n    elif note != \"_\":\n        df.loc[idx, 'notes'] = f\"{existing_note}, {note}\"\nprint(f\"Extracted notes from {sum(1 for n in extracted_notes if n != '_')} titles\")\n# Clean release_years column",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "df = df.fillna(\"_\")\ndf = df.replace(\"\", \"_\")\ndf = df.replace(\"-\", \"_\")\ndf = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "df = df.replace(\"\", \"_\")\ndf = df.replace(\"-\", \"_\")\ndf = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "df = df.replace(\"-\", \"_\")\ndf = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "df = df.replace(\"nan\", \"_\")\n# Save the cleaned dataset\noutput_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")\nprint(f\"Columns: {list(df.columns)}\")",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "output_csv",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "output_csv = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.csv\")\noutput_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")\nprint(f\"Columns: {list(df.columns)}\")\nprint(\"\\n✓ Processing complete!\")",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "output_excel",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.clean_kdrama_dataset",
-        "description": "data_scrapper.dataset.clean_kdrama_dataset",
-        "peekOfCode": "output_excel = os.path.join(os.path.dirname(__file__), \"kdrama_dataset_cleaned.xlsx\")\ndf.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ndf.to_excel(output_excel, index=False)\nprint(f\"\\n✓ Cleaned dataset saved to: {output_csv}\")\nprint(f\"✓ Cleaned dataset also saved to: {output_excel}\")\nprint(f\"\\nTotal rows: {len(df)}\")\nprint(f\"Columns: {list(df.columns)}\")\nprint(\"\\n✓ Processing complete!\")",
-        "detail": "data_scrapper.dataset.clean_kdrama_dataset",
-        "documentation": {}
-    },
-    {
-        "label": "extract_years",
-        "kind": 2,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "def extract_years(date_str):\n    if not isinstance(date_str, str):\n        return \"_\"\n    # Find all 4-digit years\n    years = re.findall(r\"(19|20)\\d{2}\", date_str)\n    if years:\n        # Return the highest year as string\n        return max(years, key=int)\n    # Try to extract year from date formats like 10/12/2019\n    match = re.search(r\"(19|20)\\d{2}\", date_str)",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "clean_release_years",
-        "kind": 2,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "def clean_release_years(val, date_published):\n    # Only fill if value is '_'\n    if not isinstance(val, str) or val.strip() == \"_\":\n        return extract_years(date_published)\n    # If multiple years, keep only the highest\n    years = re.findall(r\"(19|20)\\d{2}\", val)\n    if years:\n        return max(years, key=int)\n    return val\nif \"release_years\" in combined_df.columns and \"date_published\" in combined_df.columns:",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "input_file",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "input_file = os.path.join(os.path.dirname(__file__), \"combined_kdrama_dataset.csv\")\ncombined_df = pd.read_csv(input_file, dtype=str)\ndef extract_years(date_str):\n    if not isinstance(date_str, str):\n        return \"_\"\n    # Find all 4-digit years\n    years = re.findall(r\"(19|20)\\d{2}\", date_str)\n    if years:\n        # Return the highest year as string\n        return max(years, key=int)",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "combined_df",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "combined_df = pd.read_csv(input_file, dtype=str)\ndef extract_years(date_str):\n    if not isinstance(date_str, str):\n        return \"_\"\n    # Find all 4-digit years\n    years = re.findall(r\"(19|20)\\d{2}\", date_str)\n    if years:\n        # Return the highest year as string\n        return max(years, key=int)\n    # Try to extract year from date formats like 10/12/2019",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "output_csv",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "output_csv = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset_cleaned.csv\"\n)\noutput_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset_cleaned.xlsx\"\n)\ncombined_df.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ncombined_df.to_excel(output_excel, index=False)\nprint(f\"Cleaned dataset saved to: {output_csv}\")\nprint(f\"Cleaned dataset also saved to: {output_excel}\")",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
-        "label": "output_excel",
-        "kind": 5,
-        "importPath": "data_scrapper.dataset.merger",
-        "description": "data_scrapper.dataset.merger",
-        "peekOfCode": "output_excel = os.path.join(\n    os.path.dirname(__file__), \"combined_kdrama_dataset_cleaned.xlsx\"\n)\ncombined_df.to_csv(output_csv, index=False, encoding=\"utf-8-sig\")\ncombined_df.to_excel(output_excel, index=False)\nprint(f\"Cleaned dataset saved to: {output_csv}\")\nprint(f\"Cleaned dataset also saved to: {output_excel}\")\nprint(f\"Total rows: {len(combined_df)}\")\nprint(f\"Columns: {list(combined_df.columns)}\")",
-        "detail": "data_scrapper.dataset.merger",
-        "documentation": {}
-    },
-    {
         "label": "sanitize_filename",
         "kind": 2,
         "importPath": "data_scrapper.DramaList_Scrapper.dramaImage",
@@ -696,7 +558,7 @@
         "kind": 2,
         "importPath": "data_scrapper.DramaList_Scrapper.scrapper",
         "description": "data_scrapper.DramaList_Scrapper.scrapper",
-        "peekOfCode": "def extract_mydramalist_data(file_path):\n    \"\"\"Ultra-fast extractor using lxml (no BeautifulSoup).\"\"\"\n    try:\n        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:\n            text = f.read()\n    except Exception:\n        return None\n    try:\n        doc = html.fromstring(text)\n    except Exception:",
+        "peekOfCode": "def extract_mydramalist_data(file_path):\n    \"\"\"Ultra-fast extractor using lxml (no BeautifulSoup).\"\"\"\n    try:\n        with open(file_path, \"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n            text = f.read()\n    except Exception:\n        return None\n    try:\n        doc = html.fromstring(text)\n    except Exception:",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper",
         "documentation": {}
     },
@@ -705,7 +567,7 @@
         "kind": 2,
         "importPath": "data_scrapper.DramaList_Scrapper.scrapper",
         "description": "data_scrapper.DramaList_Scrapper.scrapper",
-        "peekOfCode": "def process_folder(input_path, output_csv=\"output_fast.csv\", max_workers=None, skip_existing=True):\n    \"\"\"Process all HTML files using multithreading and lxml for maximum speed.\"\"\"\n    if not os.path.exists(input_path):\n        print(f\"Path not found: {input_path}\")\n        return\n    # Collect HTML files\n    if os.path.isdir(input_path):\n        files = [os.path.join(input_path, f) for f in os.listdir(input_path)\n                 if f.lower().endswith(\".html\")]\n    else:",
+        "peekOfCode": "def process_folder(\n    input_path, output_csv=\"output_fast.csv\", max_workers=None, skip_existing=True\n):\n    \"\"\"Process all HTML files using multithreading and lxml for maximum speed.\"\"\"\n    if not os.path.exists(input_path):\n        print(f\"Path not found: {input_path}\")\n        return\n    # Collect HTML files\n    if os.path.isdir(input_path):\n        files = [",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper",
         "documentation": {}
     },
@@ -714,7 +576,7 @@
         "kind": 5,
         "importPath": "data_scrapper.DramaList_Scrapper.scrapper",
         "description": "data_scrapper.DramaList_Scrapper.scrapper",
-        "peekOfCode": "TVSERIES_RE = re.compile('TVSeries')\nDESC_CLASS_RE = re.compile(r'(show-synopsis|show-synopsis__text|show-details-item__content)')\ndef extract_mydramalist_data(file_path):\n    \"\"\"Ultra-fast extractor using lxml (no BeautifulSoup).\"\"\"\n    try:\n        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:\n            text = f.read()\n    except Exception:\n        return None\n    try:",
+        "peekOfCode": "TVSERIES_RE = re.compile(\"TVSeries\")\nDESC_CLASS_RE = re.compile(\n    r\"(show-synopsis|show-synopsis__text|show-details-item__content)\"\n)\ndef extract_mydramalist_data(file_path):\n    \"\"\"Ultra-fast extractor using lxml (no BeautifulSoup).\"\"\"\n    try:\n        with open(file_path, \"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n            text = f.read()\n    except Exception:",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper",
         "documentation": {}
     },
@@ -723,7 +585,7 @@
         "kind": 5,
         "importPath": "data_scrapper.DramaList_Scrapper.scrapper",
         "description": "data_scrapper.DramaList_Scrapper.scrapper",
-        "peekOfCode": "DESC_CLASS_RE = re.compile(r'(show-synopsis|show-synopsis__text|show-details-item__content)')\ndef extract_mydramalist_data(file_path):\n    \"\"\"Ultra-fast extractor using lxml (no BeautifulSoup).\"\"\"\n    try:\n        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:\n            text = f.read()\n    except Exception:\n        return None\n    try:\n        doc = html.fromstring(text)",
+        "peekOfCode": "DESC_CLASS_RE = re.compile(\n    r\"(show-synopsis|show-synopsis__text|show-details-item__content)\"\n)\ndef extract_mydramalist_data(file_path):\n    \"\"\"Ultra-fast extractor using lxml (no BeautifulSoup).\"\"\"\n    try:\n        with open(file_path, \"r\", encoding=\"utf-8\", errors=\"ignore\") as f:\n            text = f.read()\n    except Exception:\n        return None",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper",
         "documentation": {}
     },
@@ -743,222 +605,6 @@
         "description": "data_scrapper.DramaList_Scrapper.scrapper_2",
         "peekOfCode": "USER_AGENTS = [\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\",\n    \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15\",\n    \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0\",\n    \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36\",\n]\n# -------------------------------------------\n# Block unnecessary resources\n# -------------------------------------------\nasync def block_images_and_fonts(route: Route):",
         "detail": "data_scrapper.DramaList_Scrapper.scrapper_2",
-        "documentation": {}
-    },
-    {
-        "label": "get_rating_value",
-        "kind": 2,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "def get_rating_value(label):\n    tag = soup.select_one(f'li.list-item b.inline:-soup-contains(\"{label}\")')\n    if tag:\n        return tag.parent.get_text().replace(label + \":\", \"\").strip()\n    return None\nratings = {}\n# Score: extract only numeric value\nscore_text = get_rating_value(\"Score\")\nif score_text:\n    match = re.search(r\"[\\d\\.]+\", score_text)",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "html_path",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "html_path = r\"D:\\Projects\\SeoulMate\\data_scrapper\\DramaList_Scrapper\\dramas_html\\799280-my-secret-vampire.html\"\nif not os.path.exists(html_path):\n    raise FileNotFoundError(f\"HTML file not found: {html_path}\")\n# ---------------------------\n# Read HTML file\n# ---------------------------\nwith open(html_path, \"r\", encoding=\"utf-8\") as f:\n    html_content = f.read()\nsoup = BeautifulSoup(html_content, \"html.parser\")\n# ---------------------------",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "soup",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "soup = BeautifulSoup(html_content, \"html.parser\")\n# ---------------------------\n# 1. Titles\n# ---------------------------\ntitles = {}\nnative_tag = soup.select_one(\"li.list-item b.inline + a\")\ntitles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "titles",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "titles = {}\nnative_tag = soup.select_one(\"li.list-item b.inline + a\")\ntitles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "native_tag",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "native_tag = soup.select_one(\"li.list-item b.inline + a\")\ntitles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "titles[\"native\"]",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "titles[\"native\"] = native_tag.text.strip() if native_tag else None\nenglish_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "english_tag",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "english_tag = soup.select_one(\"li.active\")\ntitles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "titles[\"english\"]",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "titles[\"english\"] = english_tag.text.strip() if english_tag else None\naka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "aka_span",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "aka_span = soup.select_one(\"li.list-item b.inline + span.mdl-aka-titles\")\ntitles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):\n    related.append({\"title\": rel.text.strip(), \"url\": rel.get(\"href\", \"\")})",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "titles[\"also_known_as\"]",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "titles[\"also_known_as\"] = (\n    [x.strip() for x in aka_span.text.split(\",\")] if aka_span else []\n)\n# ---------------------------\n# 2. Related content\n# ---------------------------\nrelated = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):\n    related.append({\"title\": rel.text.strip(), \"url\": rel.get(\"href\", \"\")})\n# ---------------------------",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "related",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "related = []\nfor rel in soup.select(\"li.related-content div.title a.text-primary\"):\n    related.append({\"title\": rel.text.strip(), \"url\": rel.get(\"href\", \"\")})\n# ---------------------------\n# 3. Directors\n# ---------------------------\ndirectors = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Director\") ~ a')\n]",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "directors",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "directors = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Director\") ~ a')\n]\n# ---------------------------\n# 4. Screenwriters\n# ---------------------------\nscreenwriters = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Screenwriter\") ~ a')",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "screenwriters",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "screenwriters = [\n    a.text.strip()\n    for a in soup.select('li.list-item b.inline:-soup-contains(\"Screenwriter\") ~ a')\n]\n# ---------------------------\n# 5. Genres\n# ---------------------------\ngenres = [a.text.strip() for a in soup.select(\"li.show-genres a.text-primary\")]\n# ---------------------------\n# 6. Tags",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "genres",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "genres = [a.text.strip() for a in soup.select(\"li.show-genres a.text-primary\")]\n# ---------------------------\n# 6. Tags\n# ---------------------------\ntags = [a.text.strip() for a in soup.select(\"li.show-tags span a.text-primary\")]\n# ---------------------------\n# 7. Country, type, episodes, aired info\n# ---------------------------\ninfo = {}\nfor li in soup.select(\"ul.list.hidden-md-up li\"):",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "tags",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "tags = [a.text.strip() for a in soup.select(\"li.show-tags span a.text-primary\")]\n# ---------------------------\n# 7. Country, type, episodes, aired info\n# ---------------------------\ninfo = {}\nfor li in soup.select(\"ul.list.hidden-md-up li\"):\n    key_tag = li.select_one(\"b.inline\")\n    if key_tag:\n        key = key_tag.text.strip(\":\")\n        val = li.text.replace(key + \":\", \"\").strip()",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "info",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "info = {}\nfor li in soup.select(\"ul.list.hidden-md-up li\"):\n    key_tag = li.select_one(\"b.inline\")\n    if key_tag:\n        key = key_tag.text.strip(\":\")\n        val = li.text.replace(key + \":\", \"\").strip()\n        info[key] = val\n# ---------------------------\n# 8. Ratings & Popularity\n# ---------------------------",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "ratings",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "ratings = {}\n# Score: extract only numeric value\nscore_text = get_rating_value(\"Score\")\nif score_text:\n    match = re.search(r\"[\\d\\.]+\", score_text)\n    ratings[\"score\"] = float(match.group()) if match else None\nelse:\n    ratings[\"score\"] = None\nratings[\"ranked\"] = get_rating_value(\"Ranked\")\nratings[\"popularity\"] = get_rating_value(\"Popularity\")",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "score_text",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "score_text = get_rating_value(\"Score\")\nif score_text:\n    match = re.search(r\"[\\d\\.]+\", score_text)\n    ratings[\"score\"] = float(match.group()) if match else None\nelse:\n    ratings[\"score\"] = None\nratings[\"ranked\"] = get_rating_value(\"Ranked\")\nratings[\"popularity\"] = get_rating_value(\"Popularity\")\nratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "ratings[\"ranked\"]",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "ratings[\"ranked\"] = get_rating_value(\"Ranked\")\nratings[\"popularity\"] = get_rating_value(\"Popularity\")\nratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------\n# 9. Cast\n# ---------------------------\ncast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "ratings[\"popularity\"]",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "ratings[\"popularity\"] = get_rating_value(\"Popularity\")\nratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------\n# 9. Cast\n# ---------------------------\ncast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"\n    role_tag = li.select_one(\"div.text-ellipsis small\")",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "ratings[\"content_rating\"]",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "ratings[\"content_rating\"] = get_rating_value(\"Content Rating\")\n# ---------------------------\n# 9. Cast\n# ---------------------------\ncast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"\n    role_tag = li.select_one(\"div.text-ellipsis small\")\n    role = role_tag.text.strip() if role_tag else \"\"",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "cast_list",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "cast_list = []\nfor li in soup.select(\"ul.credits li.list-item\"):\n    actor_tag = li.select_one('b[itempropx=\"name\"]')\n    actor = actor_tag.text.strip() if actor_tag else \"\"\n    role_tag = li.select_one(\"div.text-ellipsis small\")\n    role = role_tag.text.strip() if role_tag else \"\"\n    role_type_tag = li.select_one(\"small.text-muted\")\n    role_type = role_type_tag.text.strip() if role_type_tag else \"\"\n    img_tag = li.select_one(\"div.credits-left img\")\n    img_url = img_tag.get(\"data-src\", \"\") if img_tag else \"\"",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "drama_data",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "drama_data = {\n    \"titles\": titles,\n    \"related_content\": related,\n    \"directors\": directors,\n    \"screenwriters\": screenwriters,\n    \"genres\": genres,\n    \"tags\": tags,\n    \"info\": info,\n    \"ratings\": ratings,\n    \"cast\": cast_list,",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
-        "documentation": {}
-    },
-    {
-        "label": "output_file",
-        "kind": 5,
-        "importPath": "data_scrapper.DramaList_Scrapper.test",
-        "description": "data_scrapper.DramaList_Scrapper.test",
-        "peekOfCode": "output_file = r\"D:\\Projects\\SeoulMate\\data_scrapper\\DramaList_Scrapper\\output.json\"\nwith open(output_file, \"w\", encoding=\"utf-8\") as f:\n    json.dump(drama_data, f, indent=4, ensure_ascii=False)\nprint(f\"Data extracted successfully! Saved to {output_file}\")",
-        "detail": "data_scrapper.DramaList_Scrapper.test",
         "documentation": {}
     },
     {
@@ -1155,7 +801,7 @@
         "kind": 2,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "def clean_text(text):\n    return \" \".join(str(text).replace(\"\\n\", \" \").replace(\"\\r\", \" \").split())\nfor col in df.columns:\n    df[col] = df[col].astype(str).apply(clean_text)\n# Create unified text field for embeddings\ntext_features = [\"Title\", \"Genre\", \"Description\", \"Cast\", \"Director\", \"Also Known As\", \"Network\", \"Release Years\"]\ndf[\"content\"] = df[[col for col in text_features if col in df.columns]].agg(\" \".join, axis=1)\n# ======================================================\n# 3. Load SentenceTransformer Model\n# ======================================================",
+        "peekOfCode": "def clean_text(text):\n    return \" \".join(str(text).replace(\"\\n\", \" \").replace(\"\\r\", \" \").split())\nfor col in df.columns:\n    df[col] = df[col].astype(str).apply(clean_text)\n# Create unified text field for embeddings\ntext_features = [\n    \"Title\",\n    \"Genre\",\n    \"Description\",\n    \"Cast\",",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1164,7 +810,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "DATA_PATH = r\"D:\\Projects\\Kdrama-recomendation\\data_scrapper\\kdrama_dataset_detailed_v7.csv\"\nMODEL_NAME = \"paraphrase-multilingual-mpnet-base-v2\"\nMODEL_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\models\"\nINDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")",
+        "peekOfCode": "DATA_PATH = r\"D:\\Projects\\SeoulMate\\dataset\\dramalist_kdramas.xlsx\"\nMODEL_NAME = \"paraphrase-multilingual-mpnet-base-v2\"\nMODEL_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\models\"\nINDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1173,7 +819,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "MODEL_NAME = \"paraphrase-multilingual-mpnet-base-v2\"\nMODEL_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\models\"\nINDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")\ndf = pd.read_csv(DATA_PATH, encoding=\"utf-8\", low_memory=False)",
+        "peekOfCode": "MODEL_NAME = \"paraphrase-multilingual-mpnet-base-v2\"\nMODEL_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\models\"\nINDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")\ndf = pd.read_excel(DATA_PATH)",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1182,7 +828,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "MODEL_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\models\"\nINDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")\ndf = pd.read_csv(DATA_PATH, encoding=\"utf-8\", low_memory=False)\ndf.fillna(\"\", inplace=True)",
+        "peekOfCode": "MODEL_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\models\"\nINDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")\ndf = pd.read_excel(DATA_PATH)\ndf.fillna(\"\", inplace=True)",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1191,7 +837,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "INDEX_DIR = r\"D:\\Projects\\Kdrama-recommendation\\model_training\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")\ndf = pd.read_csv(DATA_PATH, encoding=\"utf-8\", low_memory=False)\ndf.fillna(\"\", inplace=True)\n# Ensure required columns exist",
+        "peekOfCode": "INDEX_DIR = r\"D:\\Projects\\SeoulMate\\model_traning\\faiss_index\"\nos.makedirs(MODEL_DIR, exist_ok=True)\nos.makedirs(INDEX_DIR, exist_ok=True)\n# ======================================================\n# 2. Load and Prepare Dataset\n# ======================================================\nprint(\"Loading dataset...\")\ndf = pd.read_excel(DATA_PATH)\ndf.fillna(\"\", inplace=True)\n# Map column names to standardized format",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1200,7 +846,16 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "df = pd.read_csv(DATA_PATH, encoding=\"utf-8\", low_memory=False)\ndf.fillna(\"\", inplace=True)\n# Ensure required columns exist\nfor col in [\"Title\", \"Genre\", \"Description\", \"Cast\"]:\n    if col not in df.columns:\n        df[col] = \"\"\n# Normalize text fields\ndef clean_text(text):\n    return \" \".join(str(text).replace(\"\\n\", \" \").replace(\"\\r\", \" \").split())\nfor col in df.columns:",
+        "peekOfCode": "df = pd.read_excel(DATA_PATH)\ndf.fillna(\"\", inplace=True)\n# Map column names to standardized format\ncolumn_mapping = {\n    \"title\": \"Title\",\n    \"genres\": \"Genre\",\n    \"description\": \"Description\",\n    \"actors\": \"Cast\",\n    \"directors\": \"Director\",\n    \"alternate_names\": \"Also Known As\",",
+        "detail": "model_traning.build_index",
+        "documentation": {}
+    },
+    {
+        "label": "column_mapping",
+        "kind": 5,
+        "importPath": "model_traning.build_index",
+        "description": "model_traning.build_index",
+        "peekOfCode": "column_mapping = {\n    \"title\": \"Title\",\n    \"genres\": \"Genre\",\n    \"description\": \"Description\",\n    \"actors\": \"Cast\",\n    \"directors\": \"Director\",\n    \"alternate_names\": \"Also Known As\",\n    \"publisher\": \"Network\",\n    \"aired\": \"Release Years\",\n}",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1209,7 +864,16 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "text_features = [\"Title\", \"Genre\", \"Description\", \"Cast\", \"Director\", \"Also Known As\", \"Network\", \"Release Years\"]\ndf[\"content\"] = df[[col for col in text_features if col in df.columns]].agg(\" \".join, axis=1)\n# ======================================================\n# 3. Load SentenceTransformer Model\n# ======================================================\nprint(\"Loading SentenceTransformer model...\")\nmodel = SentenceTransformer(MODEL_NAME, cache_folder=MODEL_DIR)\nprint(\"Model loaded successfully!\")\n# ======================================================\n# 4. Generate Embeddings",
+        "peekOfCode": "text_features = [\n    \"Title\",\n    \"Genre\",\n    \"Description\",\n    \"Cast\",\n    \"Director\",\n    \"Also Known As\",\n    \"Network\",\n    \"Release Years\",\n    \"keywords\",",
+        "detail": "model_traning.build_index",
+        "documentation": {}
+    },
+    {
+        "label": "available_features",
+        "kind": 5,
+        "importPath": "model_traning.build_index",
+        "description": "model_traning.build_index",
+        "peekOfCode": "available_features = [col for col in text_features if col in df.columns]\ndf[\"content\"] = df[available_features].astype(str).agg(\" \".join, axis=1)\n# ======================================================\n# 3. Load SentenceTransformer Model\n# ======================================================\nprint(\"Loading SentenceTransformer model...\")\nmodel = SentenceTransformer(MODEL_NAME, cache_folder=MODEL_DIR)\nprint(\"Model loaded successfully!\")\n# ======================================================\n# 4. Generate Embeddings",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1218,7 +882,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "df[\"content\"] = df[[col for col in text_features if col in df.columns]].agg(\" \".join, axis=1)\n# ======================================================\n# 3. Load SentenceTransformer Model\n# ======================================================\nprint(\"Loading SentenceTransformer model...\")\nmodel = SentenceTransformer(MODEL_NAME, cache_folder=MODEL_DIR)\nprint(\"Model loaded successfully!\")\n# ======================================================\n# 4. Generate Embeddings\n# ======================================================",
+        "peekOfCode": "df[\"content\"] = df[available_features].astype(str).agg(\" \".join, axis=1)\n# ======================================================\n# 3. Load SentenceTransformer Model\n# ======================================================\nprint(\"Loading SentenceTransformer model...\")\nmodel = SentenceTransformer(MODEL_NAME, cache_folder=MODEL_DIR)\nprint(\"Model loaded successfully!\")\n# ======================================================\n# 4. Generate Embeddings\n# ======================================================",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1227,7 +891,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "model = SentenceTransformer(MODEL_NAME, cache_folder=MODEL_DIR)\nprint(\"Model loaded successfully!\")\n# ======================================================\n# 4. Generate Embeddings\n# ======================================================\nprint(\"Generating embeddings (this may take a few minutes)...\")\nembeddings = model.encode(\n    df[\"content\"].tolist(),\n    show_progress_bar=True,\n    convert_to_numpy=True,",
+        "peekOfCode": "model = SentenceTransformer(MODEL_NAME, cache_folder=MODEL_DIR)\nprint(\"Model loaded successfully!\")\n# ======================================================\n# 4. Generate Embeddings\n# ======================================================\nprint(\"Generating embeddings (this may take a few minutes)...\")\nembeddings = model.encode(\n    df[\"content\"].tolist(), show_progress_bar=True, convert_to_numpy=True, batch_size=32\n)\n# ======================================================",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1236,7 +900,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "embeddings = model.encode(\n    df[\"content\"].tolist(),\n    show_progress_bar=True,\n    convert_to_numpy=True,\n    batch_size=32\n)\n# ======================================================\n# 5. Build FAISS Index\n# ======================================================\ndim = embeddings.shape[1]",
+        "peekOfCode": "embeddings = model.encode(\n    df[\"content\"].tolist(), show_progress_bar=True, convert_to_numpy=True, batch_size=32\n)\n# ======================================================\n# 5. Build FAISS Index\n# ======================================================\ndim = embeddings.shape[1]\nindex = faiss.IndexFlatIP(dim)  # Inner product for cosine similarity\nfaiss.normalize_L2(embeddings)\nindex.add(embeddings)",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1254,7 +918,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "index = faiss.IndexFlatIP(dim)  # Inner product for cosine similarity\nfaiss.normalize_L2(embeddings)\nindex.add(embeddings)\nprint(f\"FAISS index built successfully with {index.ntotal} items.\")\n# ======================================================\n# 6. Save Index and Metadata\n# ======================================================\nfaiss.write_index(index, os.path.join(INDEX_DIR, \"index.faiss\"))\n# Save relevant metadata (keep it clean for inference)\nmeta_cols = [\"Title\", \"Genre\", \"Description\", \"Cast\", \"Director\", \"Network\", \"Release Years\", \"Also Known As\"]",
+        "peekOfCode": "index = faiss.IndexFlatIP(dim)  # Inner product for cosine similarity\nfaiss.normalize_L2(embeddings)\nindex.add(embeddings)\nprint(f\"FAISS index built successfully with {index.ntotal} items.\")\n# ======================================================\n# 6. Save Index and Metadata\n# ======================================================\nfaiss.write_index(index, os.path.join(INDEX_DIR, \"index.faiss\"))\n# Save relevant metadata (keep it clean for inference)\nmeta_cols = [",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1263,7 +927,7 @@
         "kind": 5,
         "importPath": "model_traning.build_index",
         "description": "model_traning.build_index",
-        "peekOfCode": "meta_cols = [\"Title\", \"Genre\", \"Description\", \"Cast\", \"Director\", \"Network\", \"Release Years\", \"Also Known As\"]\nmeta_cols = [c for c in meta_cols if c in df.columns]\nmetadata = df[meta_cols].to_dict(orient=\"records\")\nwith open(os.path.join(INDEX_DIR, \"meta.pkl\"), \"wb\") as f:\n    pickle.dump(metadata, f)\nprint(f\"Index and metadata saved in: {INDEX_DIR}\")\nprint(\"All done! Your FAISS index is ready for recommendations.\")",
+        "peekOfCode": "meta_cols = [\n    \"Title\",\n    \"Genre\",\n    \"Description\",\n    \"Cast\",\n    \"Director\",\n    \"Network\",\n    \"Release Years\",\n    \"Also Known As\",\n    \"rating_value\",",
         "detail": "model_traning.build_index",
         "documentation": {}
     },
@@ -1283,6 +947,60 @@
         "description": "model_traning.build_index",
         "peekOfCode": "metadata = df[meta_cols].to_dict(orient=\"records\")\nwith open(os.path.join(INDEX_DIR, \"meta.pkl\"), \"wb\") as f:\n    pickle.dump(metadata, f)\nprint(f\"Index and metadata saved in: {INDEX_DIR}\")\nprint(\"All done! Your FAISS index is ready for recommendations.\")",
         "detail": "model_traning.build_index",
+        "documentation": {}
+    },
+    {
+        "label": "build_examples",
+        "kind": 2,
+        "importPath": "model_traning.fine_tune_sbert",
+        "description": "model_traning.fine_tune_sbert",
+        "peekOfCode": "def build_examples(df, max_examples=None):\n    examples = []\n    for _, row in df.iterrows():\n        title = str(row.get(\"title\") or row.get(\"Title\") or \"\")\n        # Build a content string with relevant fields\n        parts = []\n        for c in [\n            \"title\",\n            \"Title\",\n            \"genres\",",
+        "detail": "model_traning.fine_tune_sbert",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "model_traning.fine_tune_sbert",
+        "description": "model_traning.fine_tune_sbert",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--data\", required=True, help=\"Path to dataset (csv or xlsx)\")\n    parser.add_argument(\"--model\", default=\"paraphrase-multilingual-mpnet-base-v2\")\n    parser.add_argument(\n        \"--output\", required=True, help=\"Output folder to save fine-tuned model\"\n    )\n    parser.add_argument(\"--batch_size\", type=int, default=16)\n    parser.add_argument(\"--epochs\", type=int, default=1)\n    parser.add_argument(",
+        "detail": "model_traning.fine_tune_sbert",
+        "documentation": {}
+    },
+    {
+        "label": "test_api_health",
+        "kind": 2,
+        "importPath": "test_api",
+        "description": "test_api",
+        "peekOfCode": "def test_api_health():\n    \"\"\"Test if API is running\"\"\"\n    try:\n        response = requests.get(f\"{API_URL}/\")\n        print(\"✅ API Health Check:\", response.json())\n        return True\n    except Exception as e:\n        print(\"❌ API not reachable:\", str(e))\n        return False\ndef test_recommendation(title, top_n=5):",
+        "detail": "test_api",
+        "documentation": {}
+    },
+    {
+        "label": "test_recommendation",
+        "kind": 2,
+        "importPath": "test_api",
+        "description": "test_api",
+        "peekOfCode": "def test_recommendation(title, top_n=5):\n    \"\"\"Test recommendation endpoint\"\"\"\n    print(f\"\\n🔍 Getting recommendations for: '{title}'\")\n    print(f\"   Requesting top {top_n} dramas...\\n\")\n    try:\n        response = requests.get(\n            f\"{API_URL}/recommend\", params={\"title\": title, \"top_n\": top_n}\n        )\n        if response.status_code == 200:\n            data = response.json()",
+        "detail": "test_api",
+        "documentation": {}
+    },
+    {
+        "label": "run_tests",
+        "kind": 2,
+        "importPath": "test_api",
+        "description": "test_api",
+        "peekOfCode": "def run_tests():\n    \"\"\"Run all tests\"\"\"\n    print(\"=\" * 60)\n    print(\"🎬 SeoulMate K-Drama Recommendation API Test Suite\")\n    print(\"=\" * 60)\n    # Test 1: Health check\n    if not test_api_health():\n        print(\"\\n⚠️  Start the backend server first:\")\n        print(\"   cd d:\\\\Projects\\\\SeoulMate\\\\backend\")\n        print(\"   python app.py\")",
+        "detail": "test_api",
+        "documentation": {}
+    },
+    {
+        "label": "API_URL",
+        "kind": 5,
+        "importPath": "test_api",
+        "description": "test_api",
+        "peekOfCode": "API_URL = \"http://127.0.0.1:8001\"\ndef test_api_health():\n    \"\"\"Test if API is running\"\"\"\n    try:\n        response = requests.get(f\"{API_URL}/\")\n        print(\"✅ API Health Check:\", response.json())\n        return True\n    except Exception as e:\n        print(\"❌ API not reachable:\", str(e))\n        return False",
+        "detail": "test_api",
         "documentation": {}
     }
 ]
