@@ -92,6 +92,14 @@
         "documentation": {}
     },
     {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
         "label": "InputExample",
         "importPath": "sentence_transformers",
         "description": "sentence_transformers",
@@ -101,6 +109,14 @@
     },
     {
         "label": "losses",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
         "importPath": "sentence_transformers",
         "description": "sentence_transformers",
         "isExtraImport": true,
@@ -384,11 +400,101 @@
         "documentation": {}
     },
     {
+        "label": "ndcg_score",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "math",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "math",
+        "description": "math",
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "torch",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "torch",
+        "description": "torch",
+        "detail": "torch",
+        "documentation": {}
+    },
+    {
+        "label": "Dataset",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
         "label": "DataLoader",
         "importPath": "torch.utils.data",
         "description": "torch.utils.data",
         "isExtraImport": true,
         "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "DataLoader",
+        "importPath": "torch.utils.data",
+        "description": "torch.utils.data",
+        "isExtraImport": true,
+        "detail": "torch.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "MSELoss",
+        "importPath": "torch.nn",
+        "description": "torch.nn",
+        "isExtraImport": true,
+        "detail": "torch.nn",
+        "documentation": {}
+    },
+    {
+        "label": "AutoTokenizer",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "AutoModelForSequenceClassification",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "AdamW",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
         "documentation": {}
     },
     {
@@ -977,6 +1083,105 @@
         "documentation": {}
     },
     {
+        "label": "load_metadata",
+        "kind": 2,
+        "importPath": "model_traning.eval_retrieval",
+        "description": "model_traning.eval_retrieval",
+        "peekOfCode": "def load_metadata(meta_path):\n    with open(meta_path, \"rb\") as f:\n        return pickle.load(f)\ndef build_default_testset(metadata, n=100):\n    queries = []\n    true_ids = []\n    for i, m in enumerate(metadata[:n]):\n        title = m.get(\"Title\") or m.get(\"title\") or \"\"\n        if not title:\n            continue",
+        "detail": "model_traning.eval_retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "build_default_testset",
+        "kind": 2,
+        "importPath": "model_traning.eval_retrieval",
+        "description": "model_traning.eval_retrieval",
+        "peekOfCode": "def build_default_testset(metadata, n=100):\n    queries = []\n    true_ids = []\n    for i, m in enumerate(metadata[:n]):\n        title = m.get(\"Title\") or m.get(\"title\") or \"\"\n        if not title:\n            continue\n        queries.append(title)\n        true_ids.append(i)\n    return queries, true_ids",
+        "detail": "model_traning.eval_retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "read_csv_testset",
+        "kind": 2,
+        "importPath": "model_traning.eval_retrieval",
+        "description": "model_traning.eval_retrieval",
+        "peekOfCode": "def read_csv_testset(path):\n    queries = []\n    true_ids = []\n    with open(path, encoding=\"utf-8-sig\") as f:\n        reader = csv.DictReader(f)\n        for r in reader:\n            queries.append(r[\"query\"])\n            true_ids.append(int(r[\"true_id\"]))\n    return queries, true_ids\ndef recall_at_k(I, true_ids, k):",
+        "detail": "model_traning.eval_retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "recall_at_k",
+        "kind": 2,
+        "importPath": "model_traning.eval_retrieval",
+        "description": "model_traning.eval_retrieval",
+        "peekOfCode": "def recall_at_k(I, true_ids, k):\n    hits = 0\n    for ids, t in zip(I, true_ids):\n        hits += int(t in ids[:k])\n    return hits / len(true_ids)\ndef ndcg_at_k(I, D, true_ids, k):\n    # Build per-query y_true (one-hot over returned candidates) and scores\n    y_true = []\n    y_score = []\n    for ids, scores, t in zip(I, D, true_ids):",
+        "detail": "model_traning.eval_retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "ndcg_at_k",
+        "kind": 2,
+        "importPath": "model_traning.eval_retrieval",
+        "description": "model_traning.eval_retrieval",
+        "peekOfCode": "def ndcg_at_k(I, D, true_ids, k):\n    # Build per-query y_true (one-hot over returned candidates) and scores\n    y_true = []\n    y_score = []\n    for ids, scores, t in zip(I, D, true_ids):\n        topk_ids = ids[:k]\n        rel = [1 if tid == t else 0 for tid in topk_ids]\n        y_true.append(rel)\n        y_score.append(scores[:k])\n    # sklearn expects arrays",
+        "detail": "model_traning.eval_retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "model_traning.eval_retrieval",
+        "description": "model_traning.eval_retrieval",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\n        \"--model\", default=None, help=\"Path to SBERT model (folder) or HF model name\"\n    )\n    parser.add_argument(\n        \"--index\",\n        default=r\"d:\\Projects\\SeoulMate\\model_traning\\faiss_index\\index.faiss\",\n    )\n    parser.add_argument(",
+        "detail": "model_traning.eval_retrieval",
+        "documentation": {}
+    },
+    {
+        "label": "PairDataset",
+        "kind": 6,
+        "importPath": "model_traning.fine_tune_cross_encoder",
+        "description": "model_traning.fine_tune_cross_encoder",
+        "peekOfCode": "class PairDataset(Dataset):\n    def __init__(self, rows: List[Dict]):\n        self.rows = rows\n    def __len__(self):\n        return len(self.rows)\n    def __getitem__(self, idx):\n        r = self.rows[idx]\n        return r[\"query\"], r[\"doc_text\"], float(r[\"label\"])\ndef collate_fn(batch, tokenizer, max_length=256):\n    queries, docs, labels = zip(*batch)",
+        "detail": "model_traning.fine_tune_cross_encoder",
+        "documentation": {}
+    },
+    {
+        "label": "collate_fn",
+        "kind": 2,
+        "importPath": "model_traning.fine_tune_cross_encoder",
+        "description": "model_traning.fine_tune_cross_encoder",
+        "peekOfCode": "def collate_fn(batch, tokenizer, max_length=256):\n    queries, docs, labels = zip(*batch)\n    # tokenizer supports encoding pairs: (query, doc)\n    enc = tokenizer(\n        list(queries),\n        list(docs),\n        padding=True,\n        truncation=True,\n        max_length=max_length,\n        return_tensors=\"pt\",",
+        "detail": "model_traning.fine_tune_cross_encoder",
+        "documentation": {}
+    },
+    {
+        "label": "read_csv",
+        "kind": 2,
+        "importPath": "model_traning.fine_tune_cross_encoder",
+        "description": "model_traning.fine_tune_cross_encoder",
+        "peekOfCode": "def read_csv(path):\n    rows = []\n    with open(path, encoding=\"utf-8-sig\") as f:\n        reader = csv.DictReader(f)\n        for r in reader:\n            if \"query\" not in r or \"doc_text\" not in r or \"label\" not in r:\n                continue\n            rows.append(\n                {\n                    \"query\": r[\"query\"],",
+        "detail": "model_traning.fine_tune_cross_encoder",
+        "documentation": {}
+    },
+    {
+        "label": "train",
+        "kind": 2,
+        "importPath": "model_traning.fine_tune_cross_encoder",
+        "description": "model_traning.fine_tune_cross_encoder",
+        "peekOfCode": "def train(args):\n    assert os.path.exists(args.data), f\"Data file not found: {args.data}\"\n    rows = read_csv(args.data)\n    if len(rows) == 0:\n        raise SystemExit(\"No training rows found in CSV\")\n    # optionally limit for quick CPU runs\n    if args.max_examples and args.max_examples > 0:\n        rows = rows[: args.max_examples]\n    tokenizer = AutoTokenizer.from_pretrained(args.model)\n    model = AutoModelForSequenceClassification.from_pretrained(args.model, num_labels=1)",
+        "detail": "model_traning.fine_tune_cross_encoder",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "model_traning.fine_tune_cross_encoder",
+        "description": "model_traning.fine_tune_cross_encoder",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\n        \"--data\", required=True, help=\"CSV with columns query,doc_text,label\"\n    )\n    parser.add_argument(\"--model\", default=\"cross-encoder/ms-marco-MiniLM-L-6-v2\")\n    parser.add_argument(\"--output\", default=\"models/cross-enc-finetuned\")\n    parser.add_argument(\"--epochs\", type=int, default=1)\n    parser.add_argument(\"--batch_size\", type=int, default=8)\n    parser.add_argument(\"--lr\", type=float, default=2e-5)",
+        "detail": "model_traning.fine_tune_cross_encoder",
+        "documentation": {}
+    },
+    {
         "label": "build_examples",
         "kind": 2,
         "importPath": "model_traning.fine_tune_sbert",
@@ -992,6 +1197,24 @@
         "description": "model_traning.fine_tune_sbert",
         "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--data\", required=True, help=\"Path to dataset (csv or xlsx)\")\n    parser.add_argument(\"--model\", default=\"paraphrase-multilingual-mpnet-base-v2\")\n    parser.add_argument(\n        \"--output\", required=True, help=\"Output folder to save fine-tuned model\"\n    )\n    parser.add_argument(\"--batch_size\", type=int, default=16)\n    parser.add_argument(\"--epochs\", type=int, default=1)\n    parser.add_argument(",
         "detail": "model_traning.fine_tune_sbert",
+        "documentation": {}
+    },
+    {
+        "label": "load_metadata",
+        "kind": 2,
+        "importPath": "model_traning.generate_reranker_data",
+        "description": "model_traning.generate_reranker_data",
+        "peekOfCode": "def load_metadata(meta_path):\n    with open(meta_path, \"rb\") as f:\n        return pickle.load(f)\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\n        \"--index\",\n        default=r\"d:\\Projects\\SeoulMate\\model_traning\\faiss_index\\index.faiss\",\n    )\n    parser.add_argument(",
+        "detail": "model_traning.generate_reranker_data",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "model_traning.generate_reranker_data",
+        "description": "model_traning.generate_reranker_data",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\n        \"--index\",\n        default=r\"d:\\Projects\\SeoulMate\\model_traning\\faiss_index\\index.faiss\",\n    )\n    parser.add_argument(\n        \"--meta\", default=r\"d:\\Projects\\SeoulMate\\model_traning\\faiss_index\\meta.pkl\"\n    )\n    parser.add_argument(",
+        "detail": "model_traning.generate_reranker_data",
         "documentation": {}
     },
     {
