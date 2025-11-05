@@ -161,7 +161,7 @@ def recommend(title: str, top_n=5, alpha=0.7):
         except Exception as e:
             print(f"Reranking failed: {e}")
 
-    return {"query": {"Title": title}, "recommendations": top_results[:top_n]}
+    return {"queryok ok": {"Title": title}, "recommendations": top_results[:top_n]}
 
 
 # ======================================================
