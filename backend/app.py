@@ -113,22 +113,14 @@ def recommend(
     genre=None,
     director=None,
     publisher=None,
-    episodes=None,
     top_rated=False,
     description=None,
-    content_rating=None,
-    popularity=None,
-    ranked=None,
-    watchers=None,
     rating_value=None,
     rating_count=None,
-    date_published=None,
     keywords=None,
-    actors=None,
     screenwriters=None,
     sort_by=None,
     sort_order="desc",
-    mood=None,
     similar_to=None,
 ):
     """
@@ -212,16 +204,6 @@ def recommend(
             for r in filtered
             if publisher.lower() in str(r.get("publisher", "")).lower()
         ]
-    if episodes:
-        try:
-            episodes_int = int(episodes)
-            filtered = [
-                r
-                for r in filtered
-                if str(r.get("episodes", r.get("Episodes", ""))) == str(episodes_int)
-            ]
-        except Exception:
-            pass
     if description:
         filtered = [
             r
@@ -229,34 +211,6 @@ def recommend(
             if description.lower() in str(r.get("Description", "")).lower()
             or description.lower() in str(r.get("description", "")).lower()
         ]
-    if content_rating:
-        filtered = [
-            r
-            for r in filtered
-            if content_rating.lower() in str(r.get("content_rating", "")).lower()
-        ]
-    if popularity:
-        try:
-            popularity_val = float(popularity)
-            filtered = [
-                r for r in filtered if float(r.get("popularity", 0)) >= popularity_val
-            ]
-        except Exception:
-            pass
-    if ranked:
-        try:
-            ranked_val = float(ranked)
-            filtered = [r for r in filtered if float(r.get("ranked", 0)) <= ranked_val]
-        except Exception:
-            pass
-    if watchers:
-        try:
-            watchers_val = float(watchers)
-            filtered = [
-                r for r in filtered if float(r.get("watchers", 0)) >= watchers_val
-            ]
-        except Exception:
-            pass
     if rating_value:
         try:
             rating_value_val = float(rating_value)
@@ -277,52 +231,17 @@ def recommend(
             ]
         except Exception:
             pass
-    if date_published:
-        # Accept year or range (e.g., '2015' or '2010-2020')
-        if "-" in str(date_published):
-            try:
-                start, end = map(int, str(date_published).split("-"))
-                filtered = [
-                    r
-                    for r in filtered
-                    if r.get("date_published")
-                    and start <= int(str(r.get("date_published"))[:4]) <= end
-                ]
-            except Exception:
-                pass
-        else:
-            try:
-                year = int(str(date_published))
-                filtered = [
-                    r
-                    for r in filtered
-                    if r.get("date_published")
-                    and int(str(r.get("date_published"))[:4]) == year
-                ]
-            except Exception:
-                pass
     if keywords:
         filtered = [
             r
             for r in filtered
             if keywords.lower() in str(r.get("keywords", "")).lower()
         ]
-    if actors:
-        filtered = [
-            r for r in filtered if actors.lower() in str(r.get("actors", "")).lower()
-        ]
     if screenwriters:
         filtered = [
             r
             for r in filtered
             if screenwriters.lower() in str(r.get("screenwriters", "")).lower()
-        ]
-    if mood:
-        filtered = [
-            r
-            for r in filtered
-            if mood.lower() in str(r.get("keywords", "")).lower()
-            or mood.lower() in str(r.get("description", "")).lower()
         ]
     if similar_to:
         # Find dramas similar to a given title (semantic search)
@@ -377,22 +296,14 @@ def recommend(
             "genre": genre,
             "director": director,
             "publisher": publisher,
-            "episodes": episodes,
             "top_rated": top_rated,
             "description": description,
-            "content_rating": content_rating,
-            "popularity": popularity,
-            "ranked": ranked,
-            "watchers": watchers,
             "rating_value": rating_value,
             "rating_count": rating_count,
-            "date_published": date_published,
             "keywords": keywords,
-            "actors": actors,
             "screenwriters": screenwriters,
             "sort_by": sort_by,
             "sort_order": sort_order,
-            "mood": mood,
             "similar_to": similar_to,
         },
         "recommendations": top_results,
@@ -414,53 +325,36 @@ def get_recommendations(
     genre: str = Query(None, description="Genre filter"),
     director: str = Query(None, description="Director filter"),
     publisher: str = Query(None, description="Publisher filter"),
-    episodes: int = Query(None, description="Episode count filter"),
     top_rated: bool = Query(False, description="Sort by top rating"),
     description: str = Query(None, description="Description keyword filter"),
-    content_rating: str = Query(None, description="Content rating filter"),
-    popularity: float = Query(None, description="Popularity filter (min value)"),
-    ranked: float = Query(None, description="Ranked filter (max value)"),
-    watchers: float = Query(None, description="Watchers filter (min value)"),
     rating_value: float = Query(None, description="Minimum rating value"),
     rating_count: float = Query(None, description="Minimum rating count"),
-    date_published: str = Query(None, description="Year or range (YYYY or YYYY-YYYY)"),
     keywords: str = Query(None, description="Keywords filter"),
-    actors: str = Query(None, description="Actors filter"),
     screenwriters: str = Query(None, description="Screenwriters filter"),
     sort_by: str = Query(
         None,
         description="Sort by field (e.g., rating_value, popularity, date_published, episodes, duration)",
     ),
     sort_order: str = Query("desc", description="Sort order: asc or desc"),
-    mood: str = Query(
-        None, description="Mood-based filter (e.g., feel-good, suspenseful, romantic)"
-    ),
     similar_to: str = Query(None, description="Find dramas similar to this title"),
 ):
     """Main recommendation endpoint with advanced filters and sorting."""
     return recommend(
         title,
         top_n,
-        genre,
-        director,
-        publisher,
-        episodes,
-        top_rated,
-        description,
-        content_rating,
-        popularity,
-        ranked,
-        watchers,
-        rating_value,
-        rating_count,
-        date_published,
-        keywords,
-        actors,
-        screenwriters,
-        sort_by,
-        sort_order,
-        mood,
-        similar_to,
+        alpha=0.7,
+        genre=genre,
+        director=director,
+        publisher=publisher,
+        top_rated=top_rated,
+        description=description,
+        rating_value=rating_value,
+        rating_count=rating_count,
+        keywords=keywords,
+        screenwriters=screenwriters,
+        sort_by=sort_by,
+        sort_order=sort_order,
+        similar_to=similar_to,
     )
 
 

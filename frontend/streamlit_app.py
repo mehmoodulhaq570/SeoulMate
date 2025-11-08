@@ -149,18 +149,10 @@ with st.sidebar:
     genre = st.text_input("Genre", "")
     director = st.text_input("Director", "")
     publisher = st.text_input("Publisher", "")
-    episodes = st.text_input("Episodes", "")
-    content_rating = st.text_input("Content Rating", "")
-    popularity = st.text_input("Popularity (min)", "")
-    ranked = st.text_input("Ranked (max)", "")
-    watchers = st.text_input("Watchers (min)", "")
     rating_value = st.text_input("Rating Value (min)", "")
     rating_count = st.text_input("Rating Count (min)", "")
-    date_published = st.text_input("Date Published (YYYY or YYYY-YYYY)", "")
     keywords = st.text_input("Keywords", "")
-    actors = st.text_input("Actors", "")
     screenwriters = st.text_input("Screenwriters", "")
-    mood = st.text_input("Mood (e.g., romantic, suspenseful)", "")
     similar_to = st.text_input("Similar To (title)", "")
 
     sort_by = st.selectbox(
@@ -234,20 +226,12 @@ with tab1:
             "genre": genre,
             "director": director,
             "publisher": publisher,
-            "episodes": episodes,
-            "content_rating": content_rating,
-            "popularity": popularity,
-            "ranked": ranked,
-            "watchers": watchers,
             "rating_value": rating_value,
             "rating_count": rating_count,
-            "date_published": date_published,
             "keywords": keywords,
-            "actors": actors,
             "screenwriters": screenwriters,
             "sort_by": sort_by,
             "sort_order": sort_order,
-            "mood": mood,
             "similar_to": similar_to,
         }
         # Remove empty values

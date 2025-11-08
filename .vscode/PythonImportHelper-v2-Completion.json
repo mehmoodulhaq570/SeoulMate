@@ -537,7 +537,7 @@
         "kind": 2,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "def recommend(\n    title: str,\n    top_n=5,\n    alpha=0.7,\n    genre=None,\n    director=None,\n    publisher=None,\n    episodes=None,\n    top_rated=False,\n    description=None,",
+        "peekOfCode": "def recommend(\n    title: str,\n    top_n=5,\n    alpha=0.7,\n    genre=None,\n    director=None,\n    publisher=None,\n    top_rated=False,\n    description=None,\n    rating_value=None,",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -546,7 +546,7 @@
         "kind": 2,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "def root():\n    return {\"message\": \"Hybrid Kdrama Recommendation API v3.1 is running\"}\n@app.get(\"/recommend\")\ndef get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"),\n    top_n: int = Query(5, description=\"Number of recommendations\"),\n    genre: str = Query(None, description=\"Genre filter\"),\n    director: str = Query(None, description=\"Director filter\"),\n    publisher: str = Query(None, description=\"Publisher filter\"),\n    episodes: int = Query(None, description=\"Episode count filter\"),",
+        "peekOfCode": "def root():\n    return {\"message\": \"Hybrid Kdrama Recommendation API v3.1 is running\"}\n@app.get(\"/recommend\")\ndef get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"),\n    top_n: int = Query(5, description=\"Number of recommendations\"),\n    genre: str = Query(None, description=\"Genre filter\"),\n    director: str = Query(None, description=\"Director filter\"),\n    publisher: str = Query(None, description=\"Publisher filter\"),\n    top_rated: bool = Query(False, description=\"Sort by top rating\"),",
         "detail": "backend.app",
         "documentation": {}
     },
@@ -555,7 +555,7 @@
         "kind": 2,
         "importPath": "backend.app",
         "description": "backend.app",
-        "peekOfCode": "def get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"),\n    top_n: int = Query(5, description=\"Number of recommendations\"),\n    genre: str = Query(None, description=\"Genre filter\"),\n    director: str = Query(None, description=\"Director filter\"),\n    publisher: str = Query(None, description=\"Publisher filter\"),\n    episodes: int = Query(None, description=\"Episode count filter\"),\n    top_rated: bool = Query(False, description=\"Sort by top rating\"),\n    description: str = Query(None, description=\"Description keyword filter\"),\n    content_rating: str = Query(None, description=\"Content rating filter\"),",
+        "peekOfCode": "def get_recommendations(\n    title: str = Query(..., description=\"Kdrama title or user query\"),\n    top_n: int = Query(5, description=\"Number of recommendations\"),\n    genre: str = Query(None, description=\"Genre filter\"),\n    director: str = Query(None, description=\"Director filter\"),\n    publisher: str = Query(None, description=\"Publisher filter\"),\n    top_rated: bool = Query(False, description=\"Sort by top rating\"),\n    description: str = Query(None, description=\"Description keyword filter\"),\n    rating_value: float = Query(None, description=\"Minimum rating value\"),\n    rating_count: float = Query(None, description=\"Minimum rating count\"),",
         "detail": "backend.app",
         "documentation": {}
     },
