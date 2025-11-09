@@ -9,11 +9,33 @@ import streamlit as st
 import requests
 import pandas as pd
 from typing import List, Dict
+import uuid
+import time
 
 # ======================================================
 # CONFIG
 # ======================================================
 API_URL = "http://127.0.0.1:8001"
+
+# ======================================================
+# SESSION STATE INITIALIZATION
+# ======================================================
+if "user_id" not in st.session_state:
+    st.session_state.user_id = f"user_{uuid.uuid4().hex[:8]}"
+if "session_id" not in st.session_state:
+    st.session_state.session_id = f"session_{time.time()}"
+if "last_search_id" not in st.session_state:
+    st.session_state.last_search_id = None
+if "watchlist" not in st.session_state:
+    st.session_state.watchlist = set()
+if "last_results" not in st.session_state:
+    st.session_state.last_results = None
+if "last_query" not in st.session_state:
+    st.session_state.last_query = ""
+if "last_filter_params" not in st.session_state:
+    st.session_state.last_filter_params = {}
+if "viewed_dramas" not in st.session_state:
+    st.session_state.viewed_dramas = []
 
 # ======================================================
 # PAGE CONFIG
@@ -184,18 +206,44 @@ def check_api_health() -> bool:
     try:
         response = requests.get(f"{API_URL}/", timeout=2)
         return response.status_code == 200
-    except:
+    except Exception:
         return False
 
 
-def get_recommendations(query: str, top_n: int = 5) -> Dict:
-    """Get recommendations from backend API"""
+def log_interaction(drama_title: str, interaction_type: str, position: int = None):
+    """Log user interaction (click, watchlist_add, watchlist_remove) to backend"""
     try:
-        response = requests.get(
-            f"{API_URL}/recommend", params={"title": query, "top_n": top_n}, timeout=10
-        )
+        payload = {
+            "user_id": st.session_state.user_id,
+            "session_id": st.session_state.session_id,
+            "search_id": st.session_state.last_search_id,
+            "drama_title": drama_title,
+            "interaction_type": interaction_type,
+            "position": position,
+        }
+        requests.post(f"{API_URL}/analytics/interaction", json=payload, timeout=2)
+    except Exception:
+        pass  # Silently fail - don't disrupt user experience
+
+
+def get_recommendations(query: str, top_n: int = 5, **filters) -> Dict:
+    """Get recommendations from backend API with analytics tracking"""
+    try:
+        params = {
+            "title": query,
+            "top_n": top_n,
+            "user_id": st.session_state.user_id,
+            "session_id": st.session_state.session_id,
+        }
+        params.update(filters)
+
+        response = requests.get(f"{API_URL}/recommend", params=params, timeout=10)
         if response.status_code == 200:
-            return response.json()
+            result = response.json()
+            # Store search_id for interaction tracking
+            if "search_id" in result:
+                st.session_state.last_search_id = result["search_id"]
+            return result
         else:
             return {"error": f"API error: {response.status_code}"}
     except Exception as e:
@@ -203,7 +251,7 @@ def get_recommendations(query: str, top_n: int = 5) -> Dict:
 
 
 def format_drama_card(drama: Dict, rank: int) -> str:
-    """Format drama data into HTML card"""
+    """Format drama data into interactive HTML card with click tracking"""
     title = drama.get("Title", "Unknown")
     genre = drama.get("Genre", drama.get("genres", "N/A"))
     description = drama.get(
@@ -222,8 +270,8 @@ def format_drama_card(drama: Dict, rank: int) -> str:
     if isinstance(cast, str) and len(cast) > 100:
         cast = cast[:100] + "..."
 
-    return f"""
-    <div class="drama-card">
+    card_html = f"""
+    <div class="drama-card" id="drama-card-{rank}">
         <div class="drama-title">
             <span class="rank-badge">#{rank}</span>
             <span>{title}</span>
@@ -238,6 +286,8 @@ def format_drama_card(drama: Dict, rank: int) -> str:
         <span class="score-badge">⭐ {rating}</span>
     </div>
     """
+
+    return card_html, title, rank
 
 
 # ======================================================
@@ -345,7 +395,9 @@ st.markdown(
 )
 
 # Search tabs
-tab1, tab2, tab3 = st.tabs(["🔍 Smart Search", "📊 Statistics", "ℹ️ How It Works"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(
+    ["🔍 Smart Search", "👤 My Profile", "📊 Statistics", "📈 Analytics", "ℹ️ How It Works"]
+)
 
 with tab1:
     st.markdown("### 🎯 Find Your Perfect Drama")
@@ -420,68 +472,210 @@ with tab1:
         }
         # Remove empty values
         filter_params = {k: v for k, v in filter_params.items() if v not in [None, ""]}
-        params = {"title": query, "top_n": top_n}
-        params.update(filter_params)
 
         with st.spinner(
             "🔮 AI is analyzing thousands of dramas to find your perfect matches..."
         ):
-            try:
-                response = requests.get(
-                    f"{API_URL}/recommend", params=params, timeout=10
+            results = get_recommendations(query, top_n, **filter_params)
+
+            # Store results in session state
+            st.session_state.last_results = results
+            st.session_state.last_query = query
+            st.session_state.last_filter_params = filter_params
+
+    # Display results from session state (persists across reruns)
+    if st.session_state.last_results is not None:
+        results = st.session_state.last_results
+        filter_params = st.session_state.last_filter_params
+
+        if "error" in results:
+            st.error(f"❌ **Error:** {results['error']}")
+            st.info(
+                "💡 **Tip:** Make sure the backend is running with `python backend/app.py`"
+            )
+        else:
+            recommendations = results.get("recommendations", [])
+
+            if recommendations:
+                st.success(
+                    f"✨ **Found {len(recommendations)} amazing recommendations for you!**"
                 )
-                if response.status_code == 200:
-                    results = response.json()
-                else:
-                    results = {"error": f"API error: {response.status_code}"}
-            except Exception as e:
-                results = {"error": str(e)}
 
-            if "error" in results:
-                st.error(f"❌ **Error:** {results['error']}")
-                st.info(
-                    "💡 **Tip:** Make sure the backend is running with `python backend/app.py`"
-                )
-            else:
-                recommendations = results.get("recommendations", [])
+                # Show query analysis insights
+                if "analysis" in results:
+                    analysis = results["analysis"]
+                    intent = analysis.get("intent", "unknown")
+                    alpha = analysis.get("dynamic_alpha", 0.7)
 
-                if recommendations:
-                    st.success(
-                        f"✨ **Found {len(recommendations)} amazing recommendations for you!**"
-                    )
+                    col_a, col_b, col_c = st.columns(3)
+                    with col_a:
+                        st.info(
+                            f"🧠 **Query Intent:** {intent.replace('_', ' ').title()}"
+                        )
+                    with col_b:
+                        st.info(
+                            f"⚖️ **Search Weight:** {int(alpha*100)}% Semantic / {int((1-alpha)*100)}% Lexical"
+                        )
+                    with col_c:
+                        st.info(f"👤 **User ID:** {st.session_state.user_id[:12]}...")
 
-                    # Display active filters
-                    active_filters = [
-                        f"**{k.replace('_', ' ').title()}:** {v}"
-                        for k, v in filter_params.items()
-                        if v
-                    ]
-                    if active_filters:
-                        st.info("🎯 **Active Filters:** " + " | ".join(active_filters))
+                # Display active filters
+                active_filters = [
+                    f"**{k.replace('_', ' ').title()}:** {v}"
+                    for k, v in filter_params.items()
+                    if v
+                ]
+                if active_filters:
+                    st.info("🎯 **Active Filters:** " + " | ".join(active_filters))
+
+                st.markdown("---")
+
+                # Display results with interactive buttons
+                for idx, drama in enumerate(recommendations, 1):
+                    card_html, title, rank = format_drama_card(drama, idx)
+
+                    # Display card
+                    st.markdown(card_html, unsafe_allow_html=True)
+
+                    # Interactive buttons below each card
+                    btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([1, 1, 1, 3])
+
+                    with btn_col1:
+                        if st.button("👁️ View", key=f"view_{idx}_{title}"):
+                            log_interaction(title, "click", position=idx)
+                            # Add to viewed dramas (keep last 50)
+                            if title not in st.session_state.viewed_dramas:
+                                st.session_state.viewed_dramas.insert(0, title)
+                                if len(st.session_state.viewed_dramas) > 50:
+                                    st.session_state.viewed_dramas.pop()
+                            st.toast(f"✅ Tracked click: {title}", icon="✅")
+
+                    with btn_col2:
+                        if title in st.session_state.watchlist:
+                            if st.button(
+                                "✓ In List",
+                                key=f"watchlist_{idx}_{title}",
+                                type="primary",
+                            ):
+                                st.session_state.watchlist.remove(title)
+                                log_interaction(title, "watchlist_remove")
+                                st.toast(f"Removed from watchlist: {title}", icon="ℹ️")
+                                st.rerun()
+                        else:
+                            if st.button(
+                                "➕ Watchlist", key=f"watchlist_{idx}_{title}"
+                            ):
+                                st.session_state.watchlist.add(title)
+                                log_interaction(title, "watchlist_add")
+                                st.toast(f"✅ Added to watchlist: {title}", icon="✅")
+                                st.rerun()
+
+                    with btn_col3:
+                        if st.button("🔄 Similar", key=f"similar_{idx}_{title}"):
+                            st.session_state.quick_search_query = title
+                            st.session_state.quick_search_genre = None
+                            st.session_state.last_results = (
+                                None  # Clear to trigger new search
+                            )
+                            st.rerun()
 
                     st.markdown("---")
 
-                    # Display results
-                    for idx, drama in enumerate(recommendations, 1):
-                        st.markdown(
-                            format_drama_card(drama, idx), unsafe_allow_html=True
-                        )
-                else:
-                    st.warning(
-                        "😔 No recommendations found. Try adjusting your search or filters!"
-                    )
-                    st.info(
-                        "💡 **Tips:**\n- Try a broader search term\n- Remove some filters\n- Check spelling of drama titles"
-                    )
+            else:
+                st.warning(
+                    "😔 No recommendations found. Try adjusting your search or filters!"
+                )
+                st.info(
+                    "💡 **Tips:**\n- Try a broader search term\n- Remove some filters\n- Check spelling of drama titles"
+                )
 
 with tab2:
-    st.markdown("### 📊 SeoulMate Statistics")
+    st.markdown("### � My Profile")
+    st.markdown(f"**User ID:** `{st.session_state.user_id}`")
+    st.markdown(f"**Session ID:** `{st.session_state.session_id}`")
+    
+    st.markdown("---")
+    
+    # Watchlist Section
+    st.markdown("### 📝 My Watchlist")
+    if st.session_state.watchlist:
+        st.info(f"You have **{len(st.session_state.watchlist)}** dramas in your watchlist")
+        
+        for drama in st.session_state.watchlist:
+            col_w1, col_w2, col_w3 = st.columns([4, 1, 1])
+            with col_w1:
+                st.markdown(f"**🎬 {drama}**")
+            with col_w2:
+                if st.button("🔍 Search", key=f"search_watchlist_{drama}"):
+                    st.session_state.quick_search_query = drama
+                    st.session_state.last_results = None
+                    st.rerun()
+            with col_w3:
+                if st.button("🗑️ Remove", key=f"remove_watchlist_{drama}"):
+                    st.session_state.watchlist.remove(drama)
+                    log_interaction(drama, "watchlist_remove")
+                    st.toast(f"Removed: {drama}", icon="ℹ️")
+                    st.rerun()
+            st.markdown("---")
+    else:
+        st.warning("📭 Your watchlist is empty!")
+        st.info("💡 **Tip:** Search for dramas and click '➕ Watchlist' to save them here.")
+    
+    st.markdown("---")
+    
+    # Viewed Dramas Section
+    st.markdown("### 👁️ Recently Viewed")
+    if st.session_state.viewed_dramas:
+        st.info(f"You have viewed **{len(st.session_state.viewed_dramas)}** dramas in this session")
+        
+        for drama in st.session_state.viewed_dramas[:20]:  # Show last 20
+            col_v1, col_v2, col_v3 = st.columns([4, 1, 1])
+            with col_v1:
+                st.markdown(f"**👁️ {drama}**")
+            with col_v2:
+                if st.button("🔍 Search", key=f"search_viewed_{drama}"):
+                    st.session_state.quick_search_query = drama
+                    st.session_state.last_results = None
+                    st.rerun()
+            with col_v3:
+                if drama not in st.session_state.watchlist:
+                    if st.button("➕ Add", key=f"add_viewed_{drama}"):
+                        st.session_state.watchlist.add(drama)
+                        log_interaction(drama, "watchlist_add")
+                        st.toast(f"✅ Added to watchlist: {drama}", icon="✅")
+                        st.rerun()
+            st.markdown("---")
+    else:
+        st.warning("👁️ You haven't viewed any dramas yet!")
+        st.info("💡 **Tip:** Search for dramas and click '👁️ View' to track them here.")
+    
+    st.markdown("---")
+    
+    # Clear buttons
+    col_clear1, col_clear2 = st.columns(2)
+    with col_clear1:
+        if st.button("🗑️ Clear Watchlist", type="secondary", use_container_width=True):
+            st.session_state.watchlist.clear()
+            st.toast("Watchlist cleared!", icon="ℹ️")
+            st.rerun()
+    with col_clear2:
+        if st.button("🗑️ Clear Viewed History", type="secondary", use_container_width=True):
+            st.session_state.viewed_dramas.clear()
+            st.toast("Viewed history cleared!", icon="ℹ️")
+            st.rerun()
+
+with tab3:
+    st.markdown("### �📊 SeoulMate Statistics")
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric("📚 Total Dramas", "1,922", help="Complete database of K-dramas")
     with col2:
-        st.metric("🤖 AI Model", "v3.1", help="Latest recommendation engine version")
+        st.metric(
+            "🤖 AI Model",
+            "v4.0 Phase 1",
+            help="Latest recommendation engine with query intelligence",
+        )
     with col3:
         st.metric("🎯 Accuracy", "Fine-tuned", help="Trained on 1,922 dramas")
     with col4:
@@ -503,12 +697,18 @@ with tab2:
         - **Retrieval System:** Hybrid approach
           - FAISS IndexFlatIP for vector search
           - BM25Plus for lexical matching
-          - Combined scoring (α=0.7)
+          - **Dynamic Alpha** (α=0.2-0.95) 🆕
         
         - **Reranker:** Cross-encoder
           - 3 epochs training
           - 25,000+ training pairs
           - Precision refinement
+        
+        - **Phase 1 Enhancements:** 🆕
+          - Query intent detection
+          - Dynamic weight adjustment
+          - Query expansion with synonyms
+          - Click tracking & analytics
         """
         )
 
@@ -552,7 +752,71 @@ with tab2:
         language="text",
     )
 
-with tab3:
+with tab4:
+    st.markdown("### 📈 Platform Analytics & Trends")
+
+    # Fetch analytics from backend
+    st.markdown("#### 🔥 Trending Right Now")
+    try:
+        # Popular dramas
+        popular_response = requests.get(
+            f"{API_URL}/analytics/popular", params={"days": 7}, timeout=5
+        )
+        if popular_response.status_code == 200:
+            popular = popular_response.json()
+            if popular:
+                st.markdown("##### 🏆 Most Popular Dramas (Last 7 Days)")
+                for item in popular[:10]:
+                    col_p1, col_p2, col_p3 = st.columns([3, 1, 1])
+                    with col_p1:
+                        st.write(f"🎬 {item['drama_title']}")
+                    with col_p2:
+                        st.write(f"💯 Score: {item['score']}")
+                    with col_p3:
+                        st.write(f"👁️ Clicks: {item['clicks']}")
+
+        # Trending searches
+        st.markdown("---")
+        trending_response = requests.get(
+            f"{API_URL}/analytics/trending-searches", params={"limit": 10}, timeout=5
+        )
+        if trending_response.status_code == 200:
+            trending = trending_response.json()
+            if trending:
+                st.markdown("##### 🔎 Trending Searches")
+                for item in trending:
+                    col_t1, col_t2, col_t3 = st.columns([3, 1, 1])
+                    with col_t1:
+                        st.write(f"🔍 {item['query']}")
+                    with col_t2:
+                        st.write(f"📊 {item['count']} searches")
+                    with col_t3:
+                        intent = item.get("intent", "unknown").replace("_", " ").title()
+                        st.write(f"🧠 {intent}")
+
+        # Overall analytics summary
+        st.markdown("---")
+        summary_response = requests.get(f"{API_URL}/analytics/summary", timeout=5)
+        if summary_response.status_code == 200:
+            summary = summary_response.json()
+            st.markdown("##### 📊 Overall Platform Stats")
+
+            col_s1, col_s2, col_s3, col_s4 = st.columns(4)
+            with col_s1:
+                st.metric("🔍 Total Searches", summary.get("total_searches", 0))
+            with col_s2:
+                st.metric("👆 Total Clicks", summary.get("total_clicks", 0))
+            with col_s3:
+                ctr = summary.get("average_ctr", 0)
+                st.metric("📈 Avg CTR", f"{ctr:.1f}%")
+            with col_s4:
+                st.metric("👥 Unique Users", summary.get("unique_users", 0))
+
+    except Exception as e:
+        st.warning(f"⚠️ Could not load analytics: {str(e)}")
+        st.info("Make sure the backend is running!")
+
+with tab5:
     st.markdown("### ℹ️ How SeoulMate Works")
 
     st.markdown("#### 🔍 The Recommendation Process")
@@ -640,7 +904,7 @@ st.markdown(
             Made with ❤️ by the SeoulMate Team | Powered by AI & Advanced Machine Learning
         </p>
         <p style="font-size: 0.8rem; opacity: 0.7;">
-            © 2025 SeoulMate - Your K-Drama Companion | v3.1
+            © 2025 SeoulMate - Your K-Drama Companion | v4.0 Phase 1 🆕
         </p>
     </div>
     """,

@@ -1,0 +1,37 @@
+{
+  "test_user_phase1": {
+    "total_searches": 0,
+    "total_clicks": 3,
+    "watchlist_adds": 2,
+    "favorite_genres": [],
+    "favorite_actors": [],
+    "interaction_count": 5,
+    "last_active": "2025-11-09T11:42:14.009059",
+    "clicked_dramas": [
+      "Goblin",
+      "Crash Landing on You",
+      "Hotel Del Luna"
+    ],
+    "watchlist": [
+      "Goblin",
+      "Hotel Del Luna"
+    ]
+  },
+  "user_684d4330": {
+    "total_searches": 0,
+    "total_clicks": 2,
+    "watchlist_adds": 2,
+    "favorite_genres": [],
+    "favorite_actors": [],
+    "interaction_count": 4,
+    "last_active": "2025-11-09T12:14:50.952893",
+    "clicked_dramas": [
+      "Crash Course in Romance",
+      "High Class"
+    ],
+    "watchlist": [
+      "Crash Landing on You",
+      "Crash Course in Romance"
+    ]
+  }
+}

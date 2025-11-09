@@ -1,5 +1,7 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Optional
 import os
 import pickle
 import faiss
@@ -8,6 +10,11 @@ from sentence_transformers import SentenceTransformer, CrossEncoder
 from rapidfuzz import process, fuzz
 from functools import lru_cache
 from rank_bm25 import BM25Plus
+import uuid
+
+# Import Phase 1 enhancements
+from query_analyzer import QueryAnalyzer, get_search_strategy
+from analytics import get_tracker
 
 # ======================================================
 # CONFIGURATION
@@ -21,7 +28,11 @@ INDEX_DIR = r"D:\Projects\SeoulMate\model_traning\faiss_index"
 # ======================================================
 # FASTAPI SETUP
 # ======================================================
-app = FastAPI(title="Kdrama Hybrid Recommendation API", version="3.1")
+app = FastAPI(
+    title="SeoulMate Kdrama Recommendation API",
+    version="4.0 (Phase 1)",
+    description="Intelligent K-Drama recommendations with AI-powered query understanding and user analytics",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -71,6 +82,14 @@ bm25 = BM25Plus([doc.split() for doc in corpus])
 print(f"Loaded {len(metadata)} dramas successfully.")
 
 # ======================================================
+# STAGE 1.5 — INITIALIZE PHASE 1 ENHANCEMENTS
+# ======================================================
+print("Stage 1.5: Initializing Phase 1 enhancements...")
+query_analyzer = QueryAnalyzer()
+analytics_tracker = get_tracker()
+print("✓ Query analyzer and analytics tracker initialized.")
+
+# ======================================================
 # STAGE 2 — LOAD OPTIONAL RERANKER
 # ======================================================
 try:
@@ -104,12 +123,12 @@ def cached_encode(text: str):
 
 
 # ======================================================
-# STAGE 4 — HYBRID RECOMMENDATION PIPELINE
+# STAGE 4 — HYBRID RECOMMENDATION PIPELINE (v4.0 with Phase 1)
 # ======================================================
 def recommend(
     title: str,
     top_n=5,
-    alpha=0.7,
+    alpha=0.7,  # Will be overridden by dynamic alpha
     genre=None,
     director=None,
     publisher=None,
@@ -122,18 +141,38 @@ def recommend(
     sort_by=None,
     sort_order="desc",
     similar_to=None,
+    user_id=None,  # NEW: For analytics tracking
+    session_id=None,  # NEW: For session tracking
 ):
     """
-    Stage-based pipeline:
-    0. Apply filters to create filtered corpus (PRE-FILTERING)
-    1. Resolve user input (fuzzy match or free-text)
-    2. Semantic search (FAISS) on filtered corpus
-    3. Lexical search (BM25) on filtered corpus
-    4. Hybrid combination
-    5. Optional reranking (Cross-Encoder)
+    Stage-based pipeline with Phase 1 enhancements:
+    0. Query Analysis (NEW) - Intent detection, query expansion
+    1. Apply filters to create filtered corpus (PRE-FILTERING)
+    2. Resolve user input (fuzzy match or free-text)
+    3. Semantic search (FAISS) on filtered corpus with expanded query
+    4. Lexical search (BM25) on filtered corpus with expanded query
+    5. Hybrid combination with dynamic alpha
+    6. Optional reranking (Cross-Encoder)
+    7. Analytics logging (NEW)
     """
 
-    # ---- Stage 4.0: PRE-FILTER the dataset ----
+    # ---- Stage 4.0: QUERY ANALYSIS (Phase 1) ----
+    analysis = query_analyzer.analyze(title)
+    intent = analysis["intent"]
+    expanded_query = analysis["expanded_query"]
+    dynamic_alpha = analysis["dynamic_alpha"]
+    entities = analysis["entities"]
+
+    print(f"🔍 Query Analysis: Intent={intent.value}, Alpha={dynamic_alpha:.2f}")
+    print(f"📝 Expanded Query: {expanded_query}")
+
+    # Get search strategy for this intent
+    strategy = get_search_strategy(intent)
+
+    # Use dynamic alpha instead of static
+    alpha = dynamic_alpha
+
+    # ---- Stage 4.1: PRE-FILTER the dataset ----
     filtered_metadata = metadata.copy()
 
     # Apply all filters to create a subset
@@ -227,7 +266,7 @@ def recommend(
     title_to_original_idx = {m["Title"]: i for i, m in enumerate(metadata)}
     filtered_indices = [title_to_original_idx[m["Title"]] for m in filtered_metadata]
 
-    # ---- Stage 4.1: Title resolution ----
+    # ---- Stage 4.2: Title resolution (use expanded query) ----
     drama = next(
         (m for m in filtered_metadata if m["Title"].lower() == title.lower()), None
     )
@@ -250,18 +289,17 @@ def recommend(
                         "utf-8"
                     )
                 )
-                query_text = f"{drama['Title']} {drama.get('Genre', '')} {drama.get('Description', '')} {drama.get('Cast', '')}"
+                # Use expanded query for better semantic search
+                query_text = f"{drama['Title']} {drama.get('Genre', '')} {drama.get('Description', '')} {drama.get('Cast', '')} {expanded_query}"
             else:
-                print(
-                    f"No close match found for '{title}', treating as free-text query."
-                )
-                query_text = title
+                print(f"No close match found for '{title}', using expanded query.")
+                query_text = expanded_query  # Use expanded query
         else:
-            query_text = title
+            query_text = expanded_query
     else:
-        query_text = f"{drama['Title']} {drama.get('Genre', '')} {drama.get('Description', '')} {drama.get('Cast', '')}"
+        query_text = f"{drama['Title']} {drama.get('Genre', '')} {drama.get('Description', '')} {drama.get('Cast', '')} {expanded_query}"
 
-    # ---- Stage 4.2: FAISS Semantic Search on filtered corpus ----
+    # ---- Stage 4.3: FAISS Semantic Search on filtered corpus ----
     query_emb = cached_encode(query_text)
     # Search more broadly to ensure we get enough results
     search_k = min(len(filtered_metadata) + 50, len(metadata))
@@ -356,8 +394,37 @@ def recommend(
         except Exception as e:
             print(f"Reranking failed: {e}")
 
+    # ---- Stage 4.7: Analytics Logging (Phase 1) ----
+    result_titles = [r["Title"] for r in top_results]
+
+    # Log search if user_id and session_id provided
+    if user_id and session_id:
+        try:
+            search_id = analytics_tracker.log_search(
+                user_id=user_id,
+                query=title,
+                intent=intent.value,
+                results=result_titles,
+                filters={
+                    "genre": genre,
+                    "director": director,
+                    "publisher": publisher,
+                    "rating_value": rating_value,
+                    "rating_count": rating_count,
+                },
+                session_id=session_id,
+            )
+            print(f"📊 Search logged: {search_id}")
+        except Exception as e:
+            print(f"Warning: Analytics logging failed: {e}")
+
     return {
-        "query": {"Title": title},
+        "query": {"Title": title, "expanded": expanded_query},
+        "analysis": {
+            "intent": intent.value,
+            "dynamic_alpha": dynamic_alpha,
+            "confidence": analysis["confidence"],
+        },
         "filters": {
             "genre": genre,
             "director": director,
@@ -381,7 +448,17 @@ def recommend(
 # ======================================================
 @app.get("/")
 def root():
-    return {"message": "Hybrid Kdrama Recommendation API v3.1 is running"}
+    return {
+        "message": "SeoulMate Kdrama Recommendation API v4.0 (Phase 1) is running",
+        "features": [
+            "Query Intent Detection",
+            "Dynamic Weight Adjustment",
+            "Query Expansion with Synonyms",
+            "Click Tracking & Analytics",
+            "User Behavior Learning",
+        ],
+        "docs": "/docs",
+    }
 
 
 @app.get("/recommend")
@@ -403,12 +480,20 @@ def get_recommendations(
     ),
     sort_order: str = Query("desc", description="Sort order: asc or desc"),
     similar_to: str = Query(None, description="Find dramas similar to this title"),
+    user_id: str = Query(None, description="User ID for analytics (optional)"),
+    session_id: str = Query(None, description="Session ID for analytics (optional)"),
 ):
-    """Main recommendation endpoint with advanced filters and sorting."""
+    """Main recommendation endpoint with advanced filters, sorting, and Phase 1 enhancements."""
+    # Generate session ID if not provided
+    if user_id and not session_id:
+        import uuid
+
+        session_id = f"session_{uuid.uuid4().hex[:8]}"
+
     return recommend(
         title,
         top_n,
-        alpha=0.7,
+        alpha=0.7,  # Will be overridden by dynamic alpha
         genre=genre,
         director=director,
         publisher=publisher,
@@ -421,7 +506,130 @@ def get_recommendations(
         sort_by=sort_by,
         sort_order=sort_order,
         similar_to=similar_to,
+        user_id=user_id,
+        session_id=session_id,
     )
+
+
+# ======================================================
+# ANALYTICS ENDPOINTS (Phase 1)
+# ======================================================
+class InteractionRequest(BaseModel):
+    user_id: str
+    drama_title: str
+    interaction_type: str
+    search_id: Optional[str] = None
+    position: Optional[int] = None
+    session_id: Optional[str] = None
+
+
+@app.post("/analytics/interaction", tags=["Analytics"])
+def log_interaction(request: InteractionRequest):
+    """
+    Log user interaction with a drama
+    Used for:
+    - Click tracking
+    - Implicit feedback
+    - Recommendation improvement
+    """
+    try:
+        analytics_tracker.log_interaction(
+            user_id=request.user_id,
+            drama_title=request.drama_title,
+            action=request.interaction_type,
+            search_id=request.search_id,
+            position=request.position,
+            session_id=request.session_id,
+        )
+        return {"status": "success", "message": "Interaction logged"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to log interaction: {str(e)}"
+        )
+
+
+@app.get("/analytics/popular", tags=["Analytics"])
+def get_popular_dramas(
+    days: int = Query(7, description="Look back period in days"),
+    limit: int = Query(20, description="Number of results"),
+):
+    """
+    Get most popular dramas based on user interactions
+    Useful for:
+    - Trending section
+    - Homepage recommendations
+    - Popular now widget
+    """
+    try:
+        popular = analytics_tracker.get_popular_dramas(days=days, limit=limit)
+        return {"popular_dramas": popular, "period_days": days}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to get popular dramas: {str(e)}"
+        )
+
+
+@app.get("/analytics/trending-searches", tags=["Analytics"])
+def get_trending_searches(
+    days: int = Query(7, description="Look back period in days"),
+    limit: int = Query(20, description="Number of results"),
+):
+    """
+    Get trending search queries
+    Useful for:
+    - Search suggestions
+    - Understanding user interests
+    - Content discovery
+    """
+    try:
+        trending = analytics_tracker.get_trending_searches(days=days, limit=limit)
+        return {"trending_searches": trending, "period_days": days}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to get trending searches: {str(e)}"
+        )
+
+
+@app.get("/analytics/summary", tags=["Analytics"])
+def get_analytics_summary(
+    days: int = Query(7, description="Look back period in days"),
+):
+    """
+    Get overall analytics summary
+    Includes:
+    - Total searches
+    - Total interactions
+    - Click-through rate
+    - Unique users
+    """
+    try:
+        summary = analytics_tracker.get_analytics_summary(days=days)
+        return summary
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to get analytics summary: {str(e)}"
+        )
+
+
+@app.get("/analytics/user-stats/{user_id}", tags=["Analytics"])
+def get_user_statistics(user_id: str):
+    """
+    Get statistics for a specific user
+    Includes:
+    - Total clicks
+    - Watchlist additions
+    - Interaction history
+    - Preferences
+    """
+    try:
+        stats = analytics_tracker.get_user_stats(user_id)
+        if not stats:
+            return {"user_id": user_id, "message": "No data found for this user"}
+        return {"user_id": user_id, "stats": stats}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to get user stats: {str(e)}"
+        )
 
 
 # ======================================================
