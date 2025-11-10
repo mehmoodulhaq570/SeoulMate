@@ -1,0 +1,23 @@
+📁 docs/
+├── README.md (landing page)
+├── getting-started/
+│   ├── installation.md
+│   ├── quick-start.md
+│   └── configuration.md
+├── api/
+│   ├── overview.md
+│   ├── recommend-endpoint.md
+│   ├── analyze-endpoint.md
+│   └── analytics-endpoints.md
+├── features/
+│   ├── query-intelligence.md
+│   ├── filters-and-sorting.md
+│   └── user-profiles.md
+├── architecture/
+│   ├── system-design.md
+│   ├── data-flow.md
+│   └── phase1-enhancements.md
+└── user-guide/
+    ├── searching.md
+    ├── filters.md
+    └── analytics.md
